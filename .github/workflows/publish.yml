@@ -14,19 +14,13 @@ jobs:
       packages: write
     if: github.repository_owner == 'spotzee-marketing'
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Use Node.js 18.x
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 18.x
           registry-url: https://registry.npmjs.org
-      - name: Cache NPM
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+          cache: 'npm'
       - run: npm ci
       - run: npm run package:publish --tag=$(echo ${GITHUB_REF_NAME:1})
         env:
