@@ -34,8 +34,8 @@ export class Client {
         this.#urlEndpoint = props.urlEndpoint
     }
 
-    async track({ properties: data, ...props }: TrackProps) {
-        return await this.#request('track', { ...props, data })
+    async track({ event, properties: data, ...props }: TrackProps) {
+        return await this.#request('events', [{ name: event, ...props, data }])
     }
 
     async identify({ traits: data, ...props }: IdentifyProps) {
@@ -43,20 +43,36 @@ export class Client {
     }
 
     async alias(props: AliasProps) {
-        return await this.#request('identify', props)
+        return await this.#request('alias', props)
     }
 
-    #mapKeys(obj: Record<string, any>) {
-        const camelToUnderscore = (key: string) => key.replace( /([A-Z])/g, "_$1" ).toLowerCase()
-        
+    #mapKeys(obj: Record<string, any> | any[]): any {
+        const camelToUnderscore = (key: string) => key.replace(/([A-Z])/g, '_$1').toLowerCase()
+
+        // Handle arrays by recursively mapping each element
+        if (Array.isArray(obj)) {
+            return obj.map(item => this.#mapKeys(item))
+        }
+
+        // Handle non-object primitives
+        if (obj === null || typeof obj !== 'object') {
+            return obj
+        }
+
+        // Handle objects by converting keys and recursively processing values
         const newObj: Record<string, any> = {}
         for (const key in obj) {
-            newObj[camelToUnderscore(key)] = obj[key]
+            const newKey = camelToUnderscore(key)
+            const value = obj[key]
+            // Recursively convert nested objects/arrays, but preserve primitive values
+            newObj[newKey] = (value !== null && typeof value === 'object')
+                ? this.#mapKeys(value)
+                : value
         }
         return newObj
     }
 
-    async #request(path: string, data: Record<string, any>) {
+    async #request(path: string, data: Record<string, any> | any[]) {
         const request = await fetch(`${this.#urlEndpoint}/client/${path}`, {
             method: 'POST',
             headers: {
