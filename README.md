@@ -64,20 +64,19 @@ Spotzee.initialize({
 ### Identify
 You can handle the user identity of your users by using the `identify` method. This method works in combination to either/or associate a given user to your internal user ID (`external_id`) or to associate attributes (traits) to the user. By default all events and traits are associated with an anonymous ID until a user is identified with an `external_id`. From that point moving forward, all updates to the user and events will be associated to your provider identifier.
 ```typescript
-
 // Client
 client.identify({
-    externalId: "XXX-XXX"
-    phone: "+1234567890"
-    email: "email@email.com"
+    externalId: "XXX-XXX",
+    phone: "+1234567890",
+    email: "email@email.com",
     traits: {}
 })
 
 // Or global script
 Spotzee.identify({
-    externalId: "XXX-XXX"
-    phone: "+1234567890"
-    email: "email@email.com"
+    externalId: "XXX-XXX",
+    phone: "+1234567890",
+    email: "email@email.com",
     traits: {}
 })
 ```
@@ -85,20 +84,21 @@ Spotzee.identify({
 ### Events
 If you want to trigger a journey and list updates off of things a user does within your app, you can pass up those events by using the `track` method.
 ```typescript
-
 // Client
 client.track({
-    event: "Tapped Button"
-    traits: {
-        "Key": "Value"
+    event: "Tapped Button",
+    externalId: "XXX-XXX",
+    properties: {
+        "button_name": "signup"
     }
 })
 
 // Or global script
 Spotzee.track({
     event: "Tapped Button",
-    traits: {
-        "Key": "Value"
+    externalId: "XXX-XXX",
+    properties: {
+        "button_name": "signup"
     }
 })
 ```
