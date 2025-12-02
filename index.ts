@@ -1,6 +1,7 @@
+const API_URL = 'https://apix.spotzee.com/api'
+
 type ClientProps = {
     apiKey: string
-    urlEndpoint: string
 }
 
 type TrackProps = {
@@ -27,11 +28,9 @@ type AliasProps = {
 
 export class Client {
     #apiKey: string
-    #urlEndpoint: string
 
     constructor(props: ClientProps) {
         this.#apiKey = props.apiKey
-        this.#urlEndpoint = props.urlEndpoint
     }
 
     async track({ event, properties: data, ...props }: TrackProps) {
@@ -73,7 +72,7 @@ export class Client {
     }
 
     async #request(path: string, data: Record<string, any> | any[]) {
-        const request = await fetch(`${this.#urlEndpoint}/client/${path}`, {
+        const request = await fetch(`${API_URL}/client/${path}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

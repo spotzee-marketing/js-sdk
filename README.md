@@ -28,12 +28,10 @@ script tag
 The SDK can be used both on the server or in the web browser. The main difference is that on the Browser the identified user will be cached vs in Node where you'll need to pass in identifiers on every request.
 
 ### Initialize
-Before using any methods, the library must be initialized with an API key and URL endpoint.
+Before using any methods, the library must be initialized with an API key.
 
 If you aren't accessing the SDK via script tag, start by importing the Spotzee SDK:
 ```typescript
-
-//
 const { Client /** or BrowserClient */ } = require('@spotzee/js-sdk')
 
 // Or
@@ -43,22 +41,13 @@ import { Client /** or BrowserClient */ } from '@spotzee/js-sdk'
 Then you can initialize the library:
 ```typescript
 // Node
-const client = new Client({
-    apiKey: "XXX-XXX",
-    urlEndpoint: "https://apix.spotzee.com/api"
-})
+const client = new Client({ apiKey: "XXX-XXX" })
 
 // Browser
-const client = new BrowserClient({
-    apiKey: "XXX-XXX",
-    urlEndpoint: "https://apix.spotzee.com/api"
-})
+const client = new BrowserClient({ apiKey: "XXX-XXX" })
 
 // Or global script
-Spotzee.initialize({
-    apiKey: "XXX-XXX",
-    urlEndpoint: "https://apix.spotzee.com/api"
-})
+Spotzee.initialize({ apiKey: "XXX-XXX" })
 ```
 
 ### Identify
