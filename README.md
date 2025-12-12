@@ -94,3 +94,35 @@ Spotzee.track({
     }
 })
 ```
+
+### Alias
+Link an anonymous user to a known user when they sign up or log in:
+```typescript
+client.alias({
+    anonymousId: "anon-123",
+    externalId: "user-456"
+})
+```
+
+### Device Registration
+Register a device for push notifications:
+```typescript
+Spotzee.registerDevice({
+    deviceId: "unique-device-id",
+    token: "push-notification-token",  // Optional
+    os: "web",
+    model: "Chrome",
+    appBuild: "1.0.0",
+    appVersion: "1.0.0"
+})
+```
+
+### In-App Notifications
+Fetch and manage in-app notifications:
+```typescript
+// Get notifications for current user
+const { results, cursor } = await Spotzee.getNotifications()
+
+// Mark a notification as read
+await Spotzee.markNotificationRead(notificationId)
+```
