@@ -1,6 +1,6 @@
 {
   "name": "@spotzee/js-sdk",
-  "version": "0.2.0",
+  "version": "0.2.2",
   "description": "Spotzee JavaScript SDK for collecting events",
   "scripts": {
     "package:build": "rimraf lib/ && npm run package:build:esm && npm run package:build:cjs",
