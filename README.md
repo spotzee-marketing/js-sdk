@@ -105,6 +105,18 @@ Spotzee.track({
 })
 ```
 
+You can also update user profile fields inline with the event:
+```typescript
+client.track({
+    event: "Tapped Button",
+    user: {
+        timezone: "America/New_York",
+        locale: "en-US"
+    },
+    properties: {}
+})
+```
+
 ### Alias
 Link an anonymous user to a known user when they sign up or log in:
 ```typescript

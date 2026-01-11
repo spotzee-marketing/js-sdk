@@ -4,10 +4,19 @@ type ClientProps = {
     apiKey: string
 }
 
+type TrackUserProps = {
+    email?: string
+    phone?: string
+    timezone?: string
+    locale?: string
+    data?: Record<string, any>
+}
+
 type TrackProps = {
     event: string
     anonymousId?: string
     externalId?: string
+    user?: TrackUserProps
     properties: Record<string, any>
 }
 
