@@ -135,19 +135,19 @@ export class Client {
         this.#apiKey = props.apiKey
     }
 
-    async track({ event, properties: data, ...props }: TrackProps) {
+    async track({ event, properties: data, ...props }: TrackProps): Promise<string> {
         return await this.#request('events', [{ name: event, ...props, data }])
     }
 
-    async identify({ traits: data, ...props }: IdentifyProps) {
+    async identify({ traits: data, ...props }: IdentifyProps): Promise<string> {
         return await this.#request('identify', { ...props, data })
     }
 
-    async alias(props: AliasProps) {
+    async alias(props: AliasProps): Promise<string> {
         return await this.#request('alias', props)
     }
 
-    async registerDevice(props: DeviceProps) {
+    async registerDevice(props: DeviceProps): Promise<string> {
         // Validate required fields per backend schema
         if (!props.deviceId || !props.os || !props.model || !props.appBuild || !props.appVersion) {
             throw new Error('Missing required device fields: deviceId, os, model, appBuild, appVersion')
@@ -162,7 +162,7 @@ export class Client {
         return await this.#get('notifications', identity, cursor)
     }
 
-    async markNotificationRead(id: number, identity: { anonymousId: string; externalId?: string }) {
+    async markNotificationRead(id: number, identity: { anonymousId: string; externalId?: string }): Promise<string> {
         return await this.#put(`notifications/${id}`, identity)
     }
 
@@ -259,7 +259,7 @@ export class BrowserClient extends Client {
         this.#client = new Client(props)
     }
 
-    async track(props: TrackProps) {
+    async track(props: TrackProps): Promise<string> {
         return await this.#client.track({
             ...props,
             anonymousId: props.anonymousId ?? this.#anonymousId,
@@ -267,7 +267,7 @@ export class BrowserClient extends Client {
         })
     }
 
-    async identify(props: IdentifyProps) {
+    async identify(props: IdentifyProps): Promise<string> {
         this.#externalId = props.externalId
         return await this.#client.identify({
             ...props,
@@ -276,12 +276,12 @@ export class BrowserClient extends Client {
         })
     }
 
-    async alias(props: AliasProps) {
+    async alias(props: AliasProps): Promise<string> {
         this.#externalId = props.externalId
         return await this.#client.alias(props)
     }
 
-    async registerDevice(props: Omit<DeviceProps, 'anonymousId' | 'externalId'>) {
+    async registerDevice(props: Omit<DeviceProps, 'anonymousId' | 'externalId'>): Promise<string> {
         return await this.#client.registerDevice({
             ...props,
             anonymousId: this.#anonymousId,
@@ -296,14 +296,14 @@ export class BrowserClient extends Client {
         }, cursor)
     }
 
-    async markNotificationRead(id: number, identity?: { anonymousId: string; externalId?: string }) {
+    async markNotificationRead(id: number, identity?: { anonymousId: string; externalId?: string }): Promise<string> {
         return await this.#client.markNotificationRead(id, {
             anonymousId: identity?.anonymousId ?? this.#anonymousId,
             externalId: identity?.externalId ?? this.#externalId,
         })
     }
 
-    uuid() {
+    uuid(): string {
         return "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c =>
             (+c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> +c / 4).toString(16)
         )
@@ -313,31 +313,31 @@ export class BrowserClient extends Client {
 export class Spotzee {
     static instance?: BrowserClient = undefined
 
-    static initialize(props: ClientProps) {
+    static initialize(props: ClientProps): void {
         Spotzee.instance = new BrowserClient(props)
     }
 
-    static async track(props: TrackProps) {
+    static async track(props: TrackProps): Promise<string | undefined> {
         return await Spotzee.instance?.track(props)
     }
 
-    static async identify(props: IdentifyProps) {
+    static async identify(props: IdentifyProps): Promise<string | undefined> {
         return await Spotzee.instance?.identify(props)
     }
 
-    static async alias(props: AliasProps) {
+    static async alias(props: AliasProps): Promise<string | undefined> {
         return await Spotzee.instance?.alias(props)
     }
 
-    static async registerDevice(props: Omit<DeviceProps, 'anonymousId' | 'externalId'>) {
+    static async registerDevice(props: Omit<DeviceProps, 'anonymousId' | 'externalId'>): Promise<string | undefined> {
         return await Spotzee.instance?.registerDevice(props)
     }
 
-    static async getNotifications(identity?: { anonymousId: string; externalId?: string }, cursor?: string) {
+    static async getNotifications(identity?: { anonymousId: string; externalId?: string }, cursor?: string): Promise<PagedResponse<Notification> | undefined> {
         return await Spotzee.instance?.getNotifications(identity, cursor)
     }
 
-    static async markNotificationRead(id: number, identity?: { anonymousId: string; externalId?: string }) {
+    static async markNotificationRead(id: number, identity?: { anonymousId: string; externalId?: string }): Promise<string | undefined> {
         return await Spotzee.instance?.markNotificationRead(id, identity)
     }
 }

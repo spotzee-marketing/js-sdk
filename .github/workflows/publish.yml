@@ -5,49 +5,17 @@ on:
     tags:
       - "v*.*.*"
 
-# -----------------------------------------------------------------------------
-# npmjs.org publish — disabled pending migration to npm Trusted Publishing (OIDC).
-#
-# Classic NPM_TOKEN automation tokens were deprecated and revoked by npm in late
-# 2025; the registry returns a misleading 404 on PUT to a scoped package when
-# the token is revoked, which is what broke this job. Re-enabling requires:
-#   1. UI step on npmjs.com/package/@spotzee/js-sdk/access — add a Trusted
-#      Publisher for spotzee-marketing/js-sdk + this workflow file. (Blocked
-#      while the npmjs.com web UI is unavailable.)
-#   2. Replace `registry-url` and `NODE_AUTH_TOKEN` with `id-token: write`
-#      permission and drop the `NPM_TOKEN` secret entirely.
-#
-# Until then GitHub Packages + JSR cover the publish surface (see jobs below).
-# -----------------------------------------------------------------------------
-# jobs:
-#   npmjs:
-#     name: Publish to npmjs.org
-#     runs-on: ubuntu-latest
-#     permissions:
-#       contents: read
-#       id-token: write
-#     if: github.repository_owner == 'spotzee-marketing'
-#     steps:
-#       - uses: actions/checkout@v4
-#       - name: Use Node.js 22.x
-#         uses: actions/setup-node@v4
-#         with:
-#           node-version: 22.x
-#           registry-url: https://registry.npmjs.org
-#           cache: 'npm'
-#       - run: npm ci
-#       - run: npm run package:publish --tag=$(echo ${GITHUB_REF_NAME:1})
-#         # No NODE_AUTH_TOKEN needed under Trusted Publishing — npm verifies
-#         # the OIDC handshake from this workflow against the package's
-#         # configured Trusted Publisher and issues a short-lived credential.
-
 jobs:
-  github-packages:
-    name: Publish to GitHub Packages
+  npmjs:
+    name: Publish to npmjs.org
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      packages: write
+      # id-token: write is what makes the OIDC handshake work — npm verifies
+      # the GitHub Actions identity against the package's Trusted Publisher
+      # config (set on npmjs.com/package/@spotzee/js-sdk/access) and issues a
+      # short-lived publish credential. No NPM_TOKEN is used.
+      id-token: write
     if: github.repository_owner == 'spotzee-marketing'
     steps:
       - uses: actions/checkout@v4
@@ -56,27 +24,25 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22.x
-          registry-url: https://npm.pkg.github.com
-          scope: '@spotzee-marketing'
+          registry-url: https://registry.npmjs.org
           cache: 'npm'
+
+      # npm Trusted Publishing requires npm CLI >= 11.5.1, which Node 22.x
+      # does not bundle (it ships npm 10.x). Pin the latest npm 11 line.
+      - name: Upgrade npm to >=11.5.1
+        run: npm install -g npm@latest
 
       - run: npm ci
       - run: npm run package:build
 
-      # GitHub Packages requires the npm scope to match the org name.
-      # Rewrite name + version on the runner only — never committed back.
-      - name: Rewrite name + version for GitHub Packages
-        run: |
-          VERSION="${GITHUB_REF_NAME#v}"
-          npm pkg set name="@spotzee-marketing/js-sdk"
-          npm pkg set version="$VERSION"
-          npm pkg set repository.url="git+https://github.com/spotzee-marketing/js-sdk.git"
-          echo "Publishing @spotzee-marketing/js-sdk@$VERSION to GitHub Packages"
-
+      # Don't use the package:publish script: it runs `npm version` which
+      # errors when package.json is already at the target version (we bump
+      # package.json + jsr.json in the same commit as the tag, so `npm version`
+      # would refuse with "version not changed").
       - name: npm publish
         run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # Provenance is generated automatically under Trusted Publishing —
+        # no --provenance flag and no NODE_AUTH_TOKEN env var.
 
   jsr:
     name: Publish to JSR
