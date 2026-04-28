@@ -36,35 +36,16 @@ jobs:
 
       # Don't use the package:publish script: it runs `npm version` which
       # errors when package.json is already at the target version (we bump
-      # package.json + jsr.json in the same commit as the tag, so `npm version`
+      # package.json in the same commit as the tag, so `npm version`
       # would refuse with "version not changed").
       - name: npm publish
         run: npm publish --access public
         # Provenance is generated automatically under Trusted Publishing —
         # no --provenance flag and no NODE_AUTH_TOKEN env var.
 
-  jsr:
-    name: Publish to JSR
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      id-token: write
-    if: github.repository_owner == 'spotzee-marketing'
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Use Node.js 22.x
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22.x
-
-      # JSR requires jsr.json's version to match the published version.
-      # Override on the runner only — never committed back.
-      - name: Sync jsr.json version with git tag
-        run: |
-          VERSION="${GITHUB_REF_NAME#v}"
-          node -e "const fs=require('fs');const p='jsr.json';const j=JSON.parse(fs.readFileSync(p,'utf8'));j.version='$VERSION';fs.writeFileSync(p, JSON.stringify(j,null,2)+'\n')"
-          echo "Publishing @spotzee/js-sdk@$VERSION to JSR"
-
-      - name: jsr publish
-        run: npx jsr publish
+# JSR publish is intentionally not configured. JSR rejects packages whose
+# license isn't a recognised SPDX open-source identifier; this SDK is under
+# a proprietary "Spotzee Proprietary License" (no modification, no
+# redistribution of derivatives), which JSR does not accept. If the SDK is
+# ever re-licensed under MIT / Apache-2.0 / similar, a JSR job can be added
+# back here.
