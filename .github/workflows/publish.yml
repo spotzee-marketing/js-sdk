@@ -5,9 +5,45 @@ on:
     tags:
       - "v*.*.*"
 
+# -----------------------------------------------------------------------------
+# npmjs.org publish — disabled pending migration to npm Trusted Publishing (OIDC).
+#
+# Classic NPM_TOKEN automation tokens were deprecated and revoked by npm in late
+# 2025; the registry returns a misleading 404 on PUT to a scoped package when
+# the token is revoked, which is what broke this job. Re-enabling requires:
+#   1. UI step on npmjs.com/package/@spotzee/js-sdk/access — add a Trusted
+#      Publisher for spotzee-marketing/js-sdk + this workflow file. (Blocked
+#      while the npmjs.com web UI is unavailable.)
+#   2. Replace `registry-url` and `NODE_AUTH_TOKEN` with `id-token: write`
+#      permission and drop the `NPM_TOKEN` secret entirely.
+#
+# Until then GitHub Packages + JSR cover the publish surface (see jobs below).
+# -----------------------------------------------------------------------------
+# jobs:
+#   npmjs:
+#     name: Publish to npmjs.org
+#     runs-on: ubuntu-latest
+#     permissions:
+#       contents: read
+#       id-token: write
+#     if: github.repository_owner == 'spotzee-marketing'
+#     steps:
+#       - uses: actions/checkout@v4
+#       - name: Use Node.js 22.x
+#         uses: actions/setup-node@v4
+#         with:
+#           node-version: 22.x
+#           registry-url: https://registry.npmjs.org
+#           cache: 'npm'
+#       - run: npm ci
+#       - run: npm run package:publish --tag=$(echo ${GITHUB_REF_NAME:1})
+#         # No NODE_AUTH_TOKEN needed under Trusted Publishing — npm verifies
+#         # the OIDC handshake from this workflow against the package's
+#         # configured Trusted Publisher and issues a short-lived credential.
+
 jobs:
-  build-package:
-    name: "Publish to GitHub Packages"
+  github-packages:
+    name: Publish to GitHub Packages
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -15,13 +51,55 @@ jobs:
     if: github.repository_owner == 'spotzee-marketing'
     steps:
       - uses: actions/checkout@v4
-      - name: Use Node.js 18.x
+
+      - name: Use Node.js 22.x
         uses: actions/setup-node@v4
         with:
-          node-version: 18.x
-          registry-url: https://registry.npmjs.org
+          node-version: 22.x
+          registry-url: https://npm.pkg.github.com
+          scope: '@spotzee-marketing'
           cache: 'npm'
+
       - run: npm ci
-      - run: npm run package:publish --tag=$(echo ${GITHUB_REF_NAME:1})
+      - run: npm run package:build
+
+      # GitHub Packages requires the npm scope to match the org name.
+      # Rewrite name + version on the runner only — never committed back.
+      - name: Rewrite name + version for GitHub Packages
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          npm pkg set name="@spotzee-marketing/js-sdk"
+          npm pkg set version="$VERSION"
+          npm pkg set repository.url="git+https://github.com/spotzee-marketing/js-sdk.git"
+          echo "Publishing @spotzee-marketing/js-sdk@$VERSION to GitHub Packages"
+
+      - name: npm publish
+        run: npm publish --access public
         env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  jsr:
+    name: Publish to JSR
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    if: github.repository_owner == 'spotzee-marketing'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js 22.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+
+      # JSR requires jsr.json's version to match the published version.
+      # Override on the runner only — never committed back.
+      - name: Sync jsr.json version with git tag
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          node -e "const fs=require('fs');const p='jsr.json';const j=JSON.parse(fs.readFileSync(p,'utf8'));j.version='$VERSION';fs.writeFileSync(p, JSON.stringify(j,null,2)+'\n')"
+          echo "Publishing @spotzee/js-sdk@$VERSION to JSR"
+
+      - name: jsr publish
+        run: npx jsr publish
