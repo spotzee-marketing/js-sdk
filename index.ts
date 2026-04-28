@@ -1,5 +1,43 @@
 const API_URL = 'https://apix.spotzee.com/api'
 
+/** Pinned Spotzee API version this SDK release targets. */
+const SPOTZEE_API_VERSION = '2026-04-28'
+
+/** x-spotzee-client-type value sent on every request from this SDK. */
+const CLIENT_TYPE = 'sdk-js'
+
+/**
+ * Best-effort parse of the new RFC 7807 error envelope (Spotzee API
+ * 2026-04-28+). Falls back to the legacy `{error: string}` shape so this
+ * works across the cutover window. Always surfaces `request_id` (from the
+ * body or the X-Request-Id response header) for support diagnostics.
+ */
+const summariseError = async (response: Response): Promise<string> => {
+    const headerRequestId = response.headers.get('X-Request-Id')
+    const raw = await response.text()
+    const parts: string[] = [`HTTP ${response.status}`]
+    if (raw) {
+        try {
+            const body = JSON.parse(raw) as Record<string, unknown>
+            const code = typeof body.code === 'string' ? body.code : null
+            const message = typeof body.message === 'string'
+                ? body.message
+                : typeof body.error === 'string' ? body.error : null
+            const bodyRequestId = typeof body.request_id === 'string' ? body.request_id : null
+            if (code) parts.push(`code=${code}`)
+            if (message) parts.push(message)
+            const resolvedRequestId = bodyRequestId ?? headerRequestId
+            if (resolvedRequestId) parts.push(`request_id=${resolvedRequestId}`)
+            return parts.join(' | ')
+        } catch {
+            // Not JSON — fall through to raw body.
+        }
+        parts.push(raw)
+    }
+    if (headerRequestId) parts.push(`request_id=${headerRequestId}`)
+    return parts.join(' | ')
+}
+
 type ClientProps = {
     apiKey: string
 }
@@ -154,17 +192,23 @@ export class Client {
         return newObj
     }
 
+    #defaultHeaders(): Record<string, string> {
+        return {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${this.#apiKey}`,
+            'Spotzee-Version': SPOTZEE_API_VERSION,
+            'x-spotzee-client-type': CLIENT_TYPE,
+        }
+    }
+
     async #request(path: string, data: Record<string, any> | any[]) {
         const response = await fetch(`${API_URL}/client/${path}`, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${this.#apiKey}`,
-            },
+            headers: this.#defaultHeaders(),
             body: JSON.stringify(this.#mapKeys(data)),
         })
         if (!response.ok) {
-            throw new Error(`API Error ${response.status}: ${await response.text()}`)
+            throw new Error(`API Error ${await summariseError(response)}`)
         }
         return await response.text()
     }
@@ -175,8 +219,7 @@ export class Client {
             url.searchParams.set('cursor', cursor)
         }
         const headers: Record<string, string> = {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${this.#apiKey}`,
+            ...this.#defaultHeaders(),
             'x-anonymous-id': identity.anonymousId,
         }
         if (identity.externalId) {
@@ -187,7 +230,7 @@ export class Client {
             headers,
         })
         if (!response.ok) {
-            throw new Error(`API Error ${response.status}: ${await response.text()}`)
+            throw new Error(`API Error ${await summariseError(response)}`)
         }
         return await response.json()
     }
@@ -195,14 +238,11 @@ export class Client {
     async #put(path: string, data: Record<string, any>) {
         const response = await fetch(`${API_URL}/client/${path}`, {
             method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${this.#apiKey}`,
-            },
+            headers: this.#defaultHeaders(),
             body: JSON.stringify(this.#mapKeys(data)),
         })
         if (!response.ok) {
-            throw new Error(`API Error ${response.status}: ${await response.text()}`)
+            throw new Error(`API Error ${await summariseError(response)}`)
         }
         return await response.text()
     }
