@@ -343,11 +343,10 @@ export class Spotzee {
 }
 
 
-// If running in a browser, expose Spotzee from the window object
-declare global {
-    interface Window { Spotzee: any; }
-}
-
+// If running in a browser, expose Spotzee on the window object.
+// Cast at the assignment site rather than augmenting the Window type
+// globally — JSR rejects `declare global` blocks (slow-types rule
+// "unsupported-global-module").
 if (typeof window !== 'undefined') {
-    window.Spotzee = Spotzee
+    (window as unknown as { Spotzee: typeof Spotzee }).Spotzee = Spotzee
 }
