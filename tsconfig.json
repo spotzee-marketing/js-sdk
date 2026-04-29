@@ -4,7 +4,12 @@
     "moduleResolution": "node",
     "module": "commonjs",
     "lib": ["dom", "esnext", "dom.iterable"],
-    "importHelpers": true,
+    // CD50 Phase 4: explicitly inline TypeScript's emit helpers (`__importStar`,
+    // `__exportStar`, etc.) instead of importing them from `tslib`. Avoids a
+    // runtime dependency for a thin SDK; TS docs treat both `true` (with
+    // tslib) and `false` (inlined) as supported choices. See:
+    // https://www.typescriptlang.org/tsconfig#importHelpers
+    "importHelpers": false,
     "declaration": true,
     "sourceMap": true,
     "outDir": "lib/cjs",
@@ -13,5 +18,6 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
-  }
+  },
+  "include": ["index.ts", "src/**/*"]
 }

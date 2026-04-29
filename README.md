@@ -148,3 +148,45 @@ const { results, cursor } = await Spotzee.getNotifications()
 // Mark a notification as read
 await Spotzee.markNotificationRead(notificationId)
 ```
+
+## Typed API client (advanced)
+
+For server-side integrations, agentic workloads, or anywhere you want full
+type coverage of the API, the SDK ships a generated client at the
+`@spotzee/js-sdk/generated` subpath. It mirrors every operation in the
+[OpenAPI 3.1 spec](https://apix.spotzee.com/api/openapi.json) with typed
+inputs, outputs, and the RFC 7807 error envelope.
+
+```typescript
+import { Spotzee, client } from '@spotzee/js-sdk/generated'
+
+client.setConfig({
+    baseUrl: 'https://apix.spotzee.com/api/client',
+    headers: {
+        Authorization: `Bearer ${process.env.SPOTZEE_API_KEY}`,
+        'Spotzee-Version': '2026-04-28',
+        'x-spotzee-client-type': 'sdk-js',
+    },
+})
+
+const { data, error } = await Spotzee.listContacts({ query: { limit: 50 } })
+if (error) {
+    console.error(`[${error.code}]`, error.message, error.request_id)
+} else {
+    data.results.forEach(contact => console.log(contact.email))
+}
+```
+
+Every component schema in the spec is exposed as a TypeScript type:
+
+```typescript
+import type { Spotzee } from '@spotzee/js-sdk/generated'
+
+const c: Spotzee.Contact = { /* … */ }
+const e: Spotzee.ErrorResponse = { /* … */ }
+```
+
+The hand-written `Client` / `BrowserClient` / `Spotzee` classes above remain
+the recommended ergonomic surface for browser-side `track` / `identify` /
+`alias` flows. The generated client is regenerated from the live spec via
+`npm run generate`.

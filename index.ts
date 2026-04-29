@@ -350,3 +350,31 @@ export class Spotzee {
 if (typeof window !== 'undefined') {
     (window as unknown as { Spotzee: typeof Spotzee }).Spotzee = Spotzee
 }
+
+// CD50 Phase 4 §6.3 — generated typed client.
+//
+// `src/generated/` is regenerated from `https://apix.spotzee.com/api/openapi.json`
+// via `npm run generate`. The pinned API version this release targets is
+// `SPOTZEE_API_VERSION` above (matched to the spec emitted by the platform).
+//
+// The generated SDK exposes a function per OpenAPI operation
+// (e.g. `listContacts`, `createCampaign`, `trackEvents`) returning fully
+// typed `{ data, error }` results. The hand-written `Client` / `BrowserClient`
+// / `Spotzee` classes above remain the ergonomic surface for the most common
+// browser-side flows (track / identify / alias / registerDevice).
+//
+// Consumers that want the full typed surface — server-side, agentic, or
+// when generating mocks — import directly:
+//
+//   import { listContacts, createCampaign, client } from '@spotzee/js-sdk/generated'
+//   import type { Campaign, Contact, ErrorResponse } from '@spotzee/js-sdk/generated'
+//
+//   client.setConfig({
+//     baseUrl: 'https://apix.spotzee.com/api/client',
+//     headers: { Authorization: `Bearer ${apiKey}`, 'Spotzee-Version': '2026-04-28' },
+//   })
+//
+// The package's `./generated` subpath is the recommended import for the
+// generated client (see "exports" map in package.json). The hand-written
+// classes above are NOT replaced — they remain the ergonomic browser-side
+// surface for the most common flows.
