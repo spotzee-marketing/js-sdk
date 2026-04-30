@@ -92,7 +92,7 @@ export const submitProjectOnboardingMetadata = <ThrowOnError extends boolean = f
 /**
  * Track events
  *
- * Records one or more behavioural events against a contact. Events drive segmentation and journey triggers. Up to 100 events per request — supplying both `anonymous_id` and `external_id` on an event links the two identifiers. Optionally pass a `user` block to update the contact’s profile in the same call.
+ * Records one or more behavioural events against a user. Events drive segmentation and journey triggers. Up to 100 events per request — supplying both `anonymous_id` and `external_id` on an event links the two identifiers. Optionally pass a `user` block to update the user’s profile in the same call.
  *
  * Idempotent — pass an `Idempotency-Key` header to make safely retryable. On a replay the original response is returned with `Idempotent-Replayed: true`. See the API conventions guide for the full state machine, TTL, and mismatch behaviour.
  */
@@ -198,9 +198,9 @@ export const previewCampaign = <ThrowOnError extends boolean = false>(options?: 
 });
 
 /**
- * Trigger a campaign send for one contact
+ * Trigger a campaign send for one user
  *
- * Fires a `trigger`-type campaign send for a single contact. The supplied `event` payload is available to template Handlebars as `{{event}}`.
+ * Fires a `trigger`-type campaign send for a single user. The supplied `event` payload is available to template Handlebars as `{{event}}`.
  *
  * Idempotent — pass an `Idempotency-Key` header to make safely retryable. On a replay the original response is returned with `Idempotent-Replayed: true`. See the API conventions guide for the full state machine, TTL, and mismatch behaviour.
  */
@@ -228,7 +228,7 @@ export const listLists = <ThrowOnError extends boolean = false>(options?: Option
 /**
  * Create a list
  *
- * Creates a new static or dynamic list. Static lists are populated by adding members directly. Dynamic lists are materialised from a rule tree and refreshed when contacts change.
+ * Creates a new static or dynamic list. Static lists are populated by adding members directly. Dynamic lists are materialised from a rule tree and refreshed when users change.
  *
  * Idempotent — pass an `Idempotency-Key` header to make safely retryable. On a replay the original response is returned with `Idempotent-Replayed: true`. See the API conventions guide for the full state machine, TTL, and mismatch behaviour.
  */
@@ -439,9 +439,9 @@ export const updateJourney = <ThrowOnError extends boolean = false>(options?: Op
 });
 
 /**
- * Trigger a journey entrance for one contact
+ * Trigger a journey entrance for one user
  *
- * Manually inserts a contact into a journey at a specific entrance step. Useful for ad-hoc triggers and back-filling missed entries.
+ * Manually inserts a user into a journey at a specific entrance step. Useful for ad-hoc triggers and back-filling missed entries.
  *
  * Idempotent — pass an `Idempotency-Key` header to make safely retryable. On a replay the original response is returned with `Idempotent-Replayed: true`. See the API conventions guide for the full state machine, TTL, and mismatch behaviour.
  */
@@ -717,7 +717,7 @@ export const createTag = <ThrowOnError extends boolean = false>(options?: Option
 /**
  * Delete a tag
  *
- * Permanently deletes the tag. Existing tag-applications on contacts and segments are removed.
+ * Permanently deletes the tag. Existing tag-applications on users and segments are removed.
  */
 export const deleteTag = <ThrowOnError extends boolean = false>(options?: Options<DeleteTagData, ThrowOnError>) => (options?.client ?? client).delete<DeleteTagResponses, DeleteTagErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
