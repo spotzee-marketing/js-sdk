@@ -3,12 +3,17 @@
 // client into `src/generated/`. Re-run with `npm run generate` whenever the
 // API spec changes; the version pin in `index.ts` (`SPOTZEE_API_VERSION`)
 // dictates the API revision the generated types target.
+//
+// Set `SPOTZEE_OPENAPI_INPUT` to a local file path (or alternate URL) to
+// generate against an unpublished spec — useful when the rename in
+// spotzee-js-app has not yet been deployed to production. Default reads
+// the live runtime spec.
 import { defineConfig } from '@hey-api/openapi-ts'
 
 export default defineConfig({
     // The live, runtime-emitted spec. Caches once per process boot server-side
     // with ETag, so repeat generations are cheap.
-    input: 'https://apix.spotzee.com/api/openapi.json',
+    input: process.env.SPOTZEE_OPENAPI_INPUT || 'https://apix.spotzee.com/api/openapi.json',
     output: {
         path: 'src/generated',
         // Emit `./foo.js` extensions on relative imports — required by Node's
@@ -25,7 +30,7 @@ export default defineConfig({
     plugins: [
         // Type definitions for every component schema in the spec.
         '@hey-api/typescript',
-        // SDK functions per operation (e.g. listContacts, createCampaign…).
+        // SDK functions per operation (e.g. listUsers, createCampaign…).
         '@hey-api/sdk',
         // Generic fetch-based client suitable for both Node and browser.
         // Host code can swap baseUrl / headers via the generated `client.setConfig({...})`.

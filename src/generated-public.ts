@@ -19,12 +19,12 @@
 //     },
 //   })
 //
-//   const { data, error } = await Spotzee.listContacts({ query: { limit: 50 } })
-//   // ↑ data is typed as `Contact[]`, error is typed `ErrorResponse | undefined`
+//   const { data, error } = await Spotzee.listUsers({ query: { limit: 50 } })
+//   // ↑ data is typed as `User[]`, error is typed `ErrorResponse | undefined`
 //
 //   // Type-only imports work the same way:
 //   import type { Spotzee } from '@spotzee/js-sdk/generated'
-//   const c: Spotzee.Contact = …
+//   const u: Spotzee.User = …
 //
 // Namespace import (NOT `export * from`) so the CJS emit doesn't need the
 // `__exportStar` runtime helper — avoids pulling in `tslib` as a runtime dep.

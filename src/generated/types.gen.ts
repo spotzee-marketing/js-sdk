@@ -78,6 +78,218 @@ export type RuleNode = {
 };
 
 /**
+ * Project as seen by an organisation API key (`ok_`). The publishable shape excludes internal credential storage and project-scoped fields such as the caller’s project role.
+ */
+export type OrgProject = {
+    /**
+     * Numeric project identifier.
+     */
+    id: number;
+    /**
+     * Identifier of the owning organisation.
+     */
+    organization_id: number;
+    /**
+     * Human-readable project name.
+     */
+    name: string;
+    /**
+     * Optional free-text description of the project.
+     */
+    description?: string | null;
+    /**
+     * The project’s public website URL, if set.
+     */
+    website_url?: string | null;
+    /**
+     * Default BCP-47 locale used for content rendering and timestamp formatting.
+     */
+    locale: string;
+    /**
+     * Default IANA timezone used for time-of-day scheduling.
+     */
+    timezone: string;
+    /**
+     * Custom opt-out reply for SMS recipients. When omitted, a system default is used.
+     */
+    text_opt_out_message?: string | null;
+    /**
+     * Custom HELP reply for SMS recipients. When omitted, a system default is used.
+     */
+    text_help_message?: string | null;
+    /**
+     * When true, links in email content are rewritten through the tracking domain.
+     */
+    link_wrap_email?: boolean | null;
+    /**
+     * When true, links in push payloads are rewritten through the tracking domain.
+     */
+    link_wrap_push?: boolean | null;
+    /**
+     * When true, an open-tracking pixel is embedded in outgoing email.
+     */
+    track_opens_email?: boolean | null;
+    /**
+     * HTTPS-only mirror URL used for Universal Links and App Links resolution.
+     */
+    deeplink_mirror_url?: string | null;
+    /**
+     * Time the project was created. ISO 8601.
+     */
+    created_at: string | null;
+    /**
+     * Time the project was last modified. ISO 8601.
+     */
+    updated_at: string | null;
+    /**
+     * Caller’s effective role on this project. Populated on single-project responses (create/update); omitted on the list endpoint to avoid per-row joins.
+     */
+    role?: 'support' | 'smtpproxy' | 'editor' | 'publisher' | 'admin';
+    /**
+     * Whether the project has at least one delivery provider configured. Populated on single-project responses; omitted on the list endpoint.
+     */
+    has_provider?: boolean;
+};
+
+/**
+ * Paginated response of `OrgProjectList`.
+ */
+export type OrgProjectList = {
+    /**
+     * Page of results, ordered per the request’s `sort` and `direction`.
+     */
+    results: Array<OrgProject>;
+    /**
+     * Opaque cursor for the next page. `null` when no further pages exist.
+     */
+    nextCursor: string | null;
+    /**
+     * Opaque cursor for the previous page. `null` when on the first page.
+     */
+    prevCursor: string | null;
+    /**
+     * Page size used to build this response.
+     */
+    limit: number;
+};
+
+/**
+ * Stable, machine-readable error code. Safe to switch on; never localised.
+ */
+export type ErrorCode = 'resource_missing' | 'resource_already_exists' | 'parameter_missing' | 'parameter_invalid_empty' | 'parameter_invalid_format' | 'parameter_unknown' | 'validation_failed' | 'authentication_required' | 'permission_denied' | 'idempotency_key_mismatch' | 'rate_limited' | 'version_unsupported' | 'version_required' | 'webhook_signature_invalid' | 'quota_exceeded' | 'internal_error';
+
+export type FieldError = {
+    /**
+     * Dotted path to the offending request field.
+     */
+    param: string;
+    code: ErrorCode & unknown;
+    /**
+     * Human-readable, English (en-AU) explanation of this field error.
+     */
+    message: string;
+};
+
+/**
+ * Spotzee error envelope (RFC 7807 + Stripe-style extensions). Served as `application/problem+json`.
+ */
+export type ErrorResponse = {
+    /**
+     * Constant marker indicating this payload is an error response.
+     */
+    status: 'error';
+    code: ErrorCode;
+    /**
+     * Short, human-readable summary suitable for a heading. en-AU.
+     */
+    title?: string;
+    /**
+     * Human-readable, en-AU explanation. May include identifiers.
+     */
+    message: string;
+    /**
+     * Legacy human-readable mirror of `message`. Retained while in-product clients migrate; new integrations should read `message`.
+     */
+    error: string;
+    /**
+     * Documentation URL for this error class (RFC 7807).
+     */
+    type?: string;
+    /**
+     * Server-generated correlation ID. Echoed in the X-Request-ID response header.
+     */
+    request_id?: string;
+    /**
+     * Name of the offending parameter, when a single field is at fault.
+     */
+    param?: string;
+    /**
+     * Field-level errors when multiple parameters fail validation.
+     */
+    errors?: Array<FieldError>;
+};
+
+/**
+ * Direction to walk relative to `cursor`. Defaults to `next` when omitted.
+ */
+export type PageDirection = 'next' | 'prev';
+
+/**
+ * Sort direction. Defaults vary per resource.
+ */
+export type SortDirection = 'asc' | 'desc';
+
+/**
+ * Create a new project inside the calling key’s organisation. Caller must have at least `admin` role on the organisation.
+ */
+export type OrgProjectCreate = {
+    /**
+     * Human-readable project name.
+     */
+    name: string;
+    /**
+     * Optional free-text description of the project.
+     */
+    description?: string | null;
+    /**
+     * The project’s public website URL. Optional protocol; HTTP or HTTPS only.
+     */
+    website_url?: string | null;
+    /**
+     * Default BCP-47 locale used for content rendering and timestamp formatting.
+     */
+    locale: string;
+    /**
+     * Default IANA timezone used for time-of-day scheduling.
+     */
+    timezone: string;
+    /**
+     * Custom opt-out reply for SMS recipients. When omitted, a system default is used.
+     */
+    text_opt_out_message?: string | null;
+    /**
+     * Custom HELP reply for SMS recipients. When omitted, a system default is used.
+     */
+    text_help_message?: string | null;
+    /**
+     * When true, links in email content are rewritten through the tracking domain.
+     */
+    link_wrap_email?: boolean | null;
+    /**
+     * When true, links in push payloads are rewritten through the tracking domain.
+     */
+    link_wrap_push?: boolean | null;
+    /**
+     * When true, an open-tracking pixel is embedded in outgoing email.
+     */
+    track_opens_email?: boolean | null;
+    /**
+     * HTTPS-only mirror URL used for Universal Links and App Links resolution.
+     */
+    deeplink_mirror_url?: string | null;
+};
+
+/**
  * The caller’s role on this project.
  */
 export type ProjectRole = 'support' | 'smtpproxy' | 'editor' | 'publisher' | 'admin';
@@ -154,59 +366,82 @@ export type Project = {
 };
 
 /**
- * Stable, machine-readable error code. Safe to switch on; never localised.
+ * Partial update of a project. Only fields included in the request body are modified.
  */
-export type ErrorCode = 'resource_missing' | 'resource_already_exists' | 'parameter_missing' | 'parameter_invalid_empty' | 'parameter_invalid_format' | 'parameter_unknown' | 'validation_failed' | 'authentication_required' | 'permission_denied' | 'idempotency_key_mismatch' | 'rate_limited' | 'version_unsupported' | 'version_required' | 'webhook_signature_invalid' | 'quota_exceeded' | 'internal_error';
-
-export type FieldError = {
-    /**
-     * Dotted path to the offending request field.
-     */
-    param: string;
-    code: ErrorCode & unknown;
-    /**
-     * Human-readable, English (en-AU) explanation of this field error.
-     */
-    message: string;
+export type OrgProjectUpdate = {
+    name?: string | null;
+    description?: string | null;
+    website_url?: string | null;
+    locale?: string | null;
+    timezone?: string | null;
+    text_opt_out_message?: string | null;
+    text_help_message?: string | null;
+    link_wrap_email?: boolean | null;
+    link_wrap_push?: boolean | null;
+    track_opens_email?: boolean | null;
+    deeplink_mirror_url?: string | null;
 };
 
 /**
- * Spotzee error envelope (RFC 7807 + Stripe-style extensions). Served as `application/problem+json`.
+ * Self-reported industry classification for the organisation behind this project.
  */
-export type ErrorResponse = {
+export type OrgOnboardingIndustry = 'ecommerce_retail' | 'saas_technology' | 'marketing_agency' | 'healthcare' | 'education' | 'financial_services' | 'real_estate' | 'hospitality_travel' | 'manufacturing' | 'media_entertainment' | 'nonprofit' | 'professional_services' | 'other';
+
+/**
+ * How the organisation discovered the platform.
+ */
+export type OrgOnboardingReferralSource = 'google_search' | 'social_media' | 'linkedin' | 'youtube' | 'friend_referral' | 'blog_article' | 'podcast' | 'newsletter' | 'paid_ad' | 'conference_event' | 'other';
+
+/**
+ * Onboarding survey responses captured during a project’s first-run wizard.
+ */
+export type OrgOnboardingMetadata = {
     /**
-     * Constant marker indicating this payload is an error response.
+     * Numeric project identifier this onboarding record belongs to.
      */
-    status: 'error';
-    code: ErrorCode;
+    project_id: number;
     /**
-     * Short, human-readable summary suitable for a heading. en-AU.
+     * Self-reported intent to integrate with a popular ecommerce platform.
      */
-    title?: string;
+    plans_shopify_woocommerce?: boolean | null;
+    industry?: OrgOnboardingIndustry;
+    referral_source?: OrgOnboardingReferralSource;
     /**
-     * Human-readable, en-AU explanation. May include identifiers.
+     * When true, the organisation has requested a setup consultation.
      */
-    message: string;
+    wants_consultation: boolean;
     /**
-     * Legacy human-readable mirror of `message`. Retained while in-product clients migrate; new integrations should read `message`.
+     * When true, the organisation has opted in to receive product marketing emails.
      */
-    error: string;
+    marketing_emails: boolean;
     /**
-     * Documentation URL for this error class (RFC 7807).
+     * Time the onboarding record was created. ISO 8601.
      */
-    type?: string;
+    created_at: string | null;
     /**
-     * Server-generated correlation ID. Echoed in the X-Request-ID response header.
+     * Time the onboarding record was last modified. ISO 8601.
      */
-    request_id?: string;
+    updated_at: string | null;
+};
+
+/**
+ * Submit (or replace) the onboarding survey for a project. Idempotent — repeated calls with the same project upsert the existing record.
+ */
+export type OrgOnboardingMetadataCreate = {
     /**
-     * Name of the offending parameter, when a single field is at fault.
+     * Self-reported intent to integrate with a popular ecommerce platform.
      */
-    param?: string;
+    plans_shopify_woocommerce?: boolean | null;
+    industry?: OrgOnboardingIndustry;
+    referral_source?: OrgOnboardingReferralSource;
     /**
-     * Field-level errors when multiple parameters fail validation.
+     * Required. Set to `true` to request a setup consultation; `false` otherwise.
      */
-    errors?: Array<FieldError>;
+    wants_consultation: boolean;
+    /**
+     * Required. Set to `true` to opt in to product marketing emails; `false` otherwise.
+     */
+    marketing_emails: boolean;
 };
 
 /**
@@ -323,6 +558,96 @@ export type CampaignType = 'blast' | 'trigger';
 export type CampaignChannel = 'email' | 'text' | 'push' | 'webhook' | 'in_app';
 
 /**
+ * Delivery channel a subscription type covers.
+ */
+export type SubscriptionChannel = 'email' | 'text' | 'push' | 'webhook' | 'in_app';
+
+/**
+ * Hydrated subscription type referenced by `subscription_id`.
+ */
+export type Subscription = {
+    /**
+     * Numeric subscription-type identifier.
+     */
+    id: number;
+    /**
+     * Identifier of the owning project.
+     */
+    project_id: number;
+    /**
+     * Human-readable subscription-type name shown on preference centres.
+     */
+    name: string;
+    channel: SubscriptionChannel;
+    /**
+     * Whether this subscription type is shown on customer-facing preference centres.
+     */
+    is_public: boolean;
+    /**
+     * Time the subscription type was created. ISO 8601.
+     */
+    created_at: string | null;
+    /**
+     * Time the subscription type was last modified. ISO 8601.
+     */
+    updated_at: string | null;
+};
+
+/**
+ * Channel family the provider belongs to.
+ */
+export type ProviderGroup = 'email' | 'text' | 'push' | 'webhook' | 'analytics';
+
+/**
+ * Window over which `rate_limit` is counted.
+ */
+export type ProviderRateInterval = 'second' | 'minute' | 'hour' | 'day';
+
+/**
+ * Hydrated delivery provider referenced by `provider_id`. Returned in the redacted public shape — see `Provider` schema. Credentials (`data`, `auth`, API keys, tokens) are NEVER included.
+ */
+export type Provider = {
+    /**
+     * Numeric provider identifier.
+     */
+    id: number;
+    /**
+     * Identifier of the owning project.
+     */
+    project_id: number;
+    /**
+     * Provider type within its group — the exact identifier of the underlying integration.
+     */
+    type: string;
+    /**
+     * Human-readable provider name shown in dashboards.
+     */
+    name: string;
+    group: ProviderGroup;
+    /**
+     * Whether this provider is the default for its group within the project.
+     */
+    is_default: boolean;
+    /**
+     * Maximum sends per `rate_interval`. Zero means unlimited.
+     */
+    rate_limit: number;
+    rate_interval: ProviderRateInterval;
+    /**
+     * Time the provider was created. ISO 8601.
+     */
+    created_at: string | null;
+    /**
+     * Time the provider was last modified. ISO 8601.
+     */
+    updated_at: string | null;
+    /**
+     * Time the provider was soft-deleted, if applicable.
+     */
+    deleted_at?: string | null;
+};
+
+/**
  * Campaign lifecycle state. Set `state: "scheduled"` (with `send_at`) to send a blast; set `state: "aborted"` to cancel.
  */
 export type CampaignState = 'draft' | 'scheduled' | 'loading' | 'running' | 'finished' | 'aborting' | 'aborted';
@@ -362,10 +687,12 @@ export type Campaign = {
      * Subscription type a contact must be opted in to in order to receive this campaign.
      */
     subscription_id: number;
+    subscription?: Subscription;
     /**
      * Delivery provider used to send the campaign.
      */
     provider_id: number;
+    provider?: Provider;
     state: CampaignState;
     delivery?: CampaignDelivery;
     tags?: Array<string> | null;
@@ -406,16 +733,6 @@ export type CampaignList = {
      */
     limit: number;
 };
-
-/**
- * Direction to walk relative to `cursor`. Defaults to `next` when omitted.
- */
-export type PageDirection = 'next' | 'prev';
-
-/**
- * Sort direction. Defaults vary per resource.
- */
-export type SortDirection = 'asc' | 'desc';
 
 /**
  * Create a new campaign. Subscription, provider, and target lists are required to send.
@@ -640,40 +957,66 @@ export type ListUpdate = {
 export type ListDeleteResponse = boolean;
 
 /**
- * Delivery channel a subscription type covers.
+ * Subscription state: `0` unsubscribed, `1` subscribed, `2` explicit double-opt-in. Reads return the current state; writes accept any of the three values to set it.
  */
-export type SubscriptionChannel = 'email' | 'text' | 'push' | 'webhook' | 'in_app';
+export type SubscriptionState = 0 | 1 | 2;
 
 /**
- * A named opt-in channel a contact can subscribe to. Used to drive sends and customer-facing preference centres. Distinct from a contact’s per-channel subscription state.
+ * A single user’s state for one subscription type. Listed by `GET /users/{userId}/subscriptions`; toggled in bulk via `PATCH /users/{userId}/subscriptions`.
  */
-export type Subscription = {
+export type UserSubscription = {
     /**
      * Numeric subscription-type identifier.
      */
-    id: number;
+    subscription_id: number;
+    state: SubscriptionState;
     /**
-     * Identifier of the owning project.
-     */
-    project_id: number;
-    /**
-     * Human-readable subscription-type name shown on preference centres.
+     * Subscription-type name as shown to the caller.
      */
     name: string;
-    channel: SubscriptionChannel;
     /**
-     * Whether this subscription type is shown on customer-facing preference centres.
+     * Delivery channel the subscription type covers.
      */
-    is_public: boolean;
-    /**
-     * Time the subscription type was created. ISO 8601.
-     */
-    created_at: string | null;
-    /**
-     * Time the subscription type was last modified. ISO 8601.
-     */
-    updated_at: string | null;
+    channel: string;
 };
+
+/**
+ * Paginated response of `UserSubscriptionList`.
+ */
+export type UserSubscriptionList = {
+    /**
+     * Page of results, ordered per the request’s `sort` and `direction`.
+     */
+    results: Array<UserSubscription>;
+    /**
+     * Opaque cursor for the next page. `null` when no further pages exist.
+     */
+    nextCursor: string | null;
+    /**
+     * Opaque cursor for the previous page. `null` when on the first page.
+     */
+    prevCursor: string | null;
+    /**
+     * Page size used to build this response.
+     */
+    limit: number;
+};
+
+/**
+ * A single subscription-type state change for one user.
+ */
+export type UserSubscriptionToggleItem = {
+    /**
+     * Numeric subscription-type identifier to toggle.
+     */
+    subscription_id: number;
+    state: SubscriptionState;
+};
+
+/**
+ * Bulk subscription-state changes for one user. Up to 100 toggles per request. Toggling to the current state is idempotent.
+ */
+export type UserSubscriptionToggle = Array<UserSubscriptionToggleItem>;
 
 /**
  * Paginated response of `SubscriptionList`.
@@ -682,7 +1025,7 @@ export type SubscriptionList = {
     /**
      * Page of results, ordered per the request’s `sort` and `direction`.
      */
-    results: Array<Subscription>;
+    results: Array<Subscription & unknown>;
     /**
      * Opaque cursor for the next page. `null` when no further pages exist.
      */
@@ -725,6 +1068,86 @@ export type SubscriptionUpdate = {
      */
     is_public: boolean;
 };
+
+/**
+ * Failure detail, present when the toggle could not be applied.
+ */
+export type SubscriptionBatchToggleError = {
+    /**
+     * Per-item error code drawn from the canonical 16-code catalogue.
+     */
+    code: string;
+    /**
+     * Human-readable, en-AU explanation of why this toggle failed.
+     */
+    message: string;
+};
+
+/**
+ * Outcome of a single user subscription toggle in a bulk request.
+ */
+export type SubscriptionBatchToggleResult = {
+    /**
+     * Position of this item in the request body, zero-indexed.
+     */
+    index: number;
+    /**
+     * External identifier the caller supplied, echoed for correlation.
+     */
+    external_id?: string | null;
+    /**
+     * Anonymous identifier the caller supplied, echoed for correlation.
+     */
+    anonymous_id?: string | null;
+    /**
+     * Numeric subscription-type identifier the caller targeted.
+     */
+    subscription_id: number;
+    state?: SubscriptionState & unknown;
+    error?: SubscriptionBatchToggleError;
+};
+
+/**
+ * Synchronous result of a cross-user bulk subscription state-toggle.
+ */
+export type SubscriptionBatchToggleResponse = {
+    /**
+     * Per-item outcomes in the same order as the request body.
+     */
+    results: Array<SubscriptionBatchToggleResult>;
+    /**
+     * Count of toggles that applied successfully.
+     */
+    succeeded: number;
+    /**
+     * Count of toggles that failed.
+     */
+    failed: number;
+};
+
+/**
+ * A single subscription state change targeted at one user.
+ */
+export type SubscriptionBatchToggleItem = {
+    /**
+     * External identifier for the user whose state is being toggled. Either `external_id` or `anonymous_id` must be present.
+     */
+    external_id?: string | null;
+    /**
+     * Anonymous identifier for the user whose state is being toggled. Either `external_id` or `anonymous_id` must be present.
+     */
+    anonymous_id?: string | null;
+    /**
+     * Numeric subscription-type identifier to toggle.
+     */
+    subscription_id: number;
+    state: SubscriptionState;
+};
+
+/**
+ * Up to 100 user subscription-state changes per request. Processed synchronously — the response reports per-item success or failure. Toggling to the current state is idempotent.
+ */
+export type SubscriptionBatchToggleRequest = Array<SubscriptionBatchToggleItem>;
 
 /**
  * `draft` is a work-in-progress journey not yet active; `live` is currently accepting entries; `off` is paused — no new entrances are processed.
@@ -1170,29 +1593,29 @@ export type TemplateProofRequest = {
 /**
  * A customer record being marketed to. Owned by a project; identified by `external_id`.
  */
-export type Contact = {
+export type User = {
     /**
      * Numeric identifier. Use `external_id` as the stable cross-system reference.
      */
     id: number;
     /**
-     * Identifier of the project this contact belongs to.
+     * Identifier of the project this user belongs to.
      */
     project_id: number;
     /**
-     * Stable identifier supplied by the calling system. Treated as the contact’s primary key for upserts.
+     * Stable identifier supplied by the calling system. Treated as the user’s primary key for upserts.
      */
     external_id: string;
     /**
-     * Anonymous tracking identifier captured before the contact was identified, when available.
+     * Anonymous tracking identifier captured before the user was identified, when available.
      */
     anonymous_id?: string | null;
     /**
-     * Contact’s email address. Format-validated on write.
+     * User’s email address. Format-validated on write.
      */
     email?: string | null;
     /**
-     * Contact’s phone number in E.164 format on read.
+     * User’s phone number in E.164 format on read.
      */
     phone?: string | null;
     /**
@@ -1204,13 +1627,13 @@ export type Contact = {
      */
     locale?: string | null;
     /**
-     * Free-form custom attributes attached to the contact. Used in segmentation and template rendering.
+     * Free-form custom attributes attached to the user. Used in segmentation and template rendering.
      */
     data?: {
         [key: string]: unknown;
     };
     /**
-     * True when the contact has at least one registered push device.
+     * True when the user has at least one registered push device.
      */
     has_push_device?: boolean;
     /**
@@ -1220,23 +1643,23 @@ export type Contact = {
         [key: string]: unknown;
     }>;
     /**
-     * Time the contact was first created. ISO 8601.
+     * Time the user was first created. ISO 8601.
      */
     created_at: string | null;
     /**
-     * Time the contact was last modified. ISO 8601.
+     * Time the user was last modified. ISO 8601.
      */
     updated_at: string | null;
 };
 
 /**
- * Paginated response of `ContactList`.
+ * Paginated response of `UserList`.
  */
-export type ContactList = {
+export type UserList = {
     /**
      * Page of results, ordered per the request’s `sort` and `direction`.
      */
-    results: Array<Contact>;
+    results: Array<User>;
     /**
      * Opaque cursor for the next page. `null` when no further pages exist.
      */
@@ -1252,23 +1675,23 @@ export type ContactList = {
 };
 
 /**
- * Upsert a contact identified by `anonymous_id`.
+ * Upsert a user identified by `anonymous_id`.
  */
-export type ContactUpsertByAnonymousId = {
+export type UserUpsertByAnonymousId = {
     /**
-     * Anonymous tracking identifier captured before the contact was identified.
+     * Anonymous tracking identifier captured before the user was identified.
      */
     anonymous_id: string;
     /**
-     * Optional system-of-record identifier to attach to this anonymous contact.
+     * Optional system-of-record identifier to attach to this anonymous user.
      */
     external_id?: string | null;
     /**
-     * Contact’s email address. Validated against RFC 5322 on write.
+     * User’s email address. Validated against RFC 5322 on write.
      */
     email?: string | null;
     /**
-     * Contact’s phone number. E.164 preferred; other formats are normalised when possible.
+     * User’s phone number. E.164 preferred; other formats are normalised when possible.
      */
     phone?: string | null;
     /**
@@ -1280,7 +1703,7 @@ export type ContactUpsertByAnonymousId = {
      */
     locale?: string | null;
     /**
-     * Free-form custom attributes attached to the contact. Used in segmentation and template rendering.
+     * Free-form custom attributes attached to the user. Used in segmentation and template rendering.
      */
     data?: {
         [key: string]: unknown;
@@ -1288,11 +1711,11 @@ export type ContactUpsertByAnonymousId = {
 };
 
 /**
- * Upsert a contact identified by `external_id`.
+ * Upsert a user identified by `external_id`.
  */
-export type ContactUpsertByExternalId = {
+export type UserUpsertByExternalId = {
     /**
-     * Optional anonymous tracking identifier to associate with this contact.
+     * Optional anonymous tracking identifier to associate with this user.
      */
     anonymous_id?: string | null;
     /**
@@ -1300,11 +1723,11 @@ export type ContactUpsertByExternalId = {
      */
     external_id: string;
     /**
-     * Contact’s email address. Validated against RFC 5322 on write.
+     * User’s email address. Validated against RFC 5322 on write.
      */
     email?: string | null;
     /**
-     * Contact’s phone number. E.164 preferred; other formats are normalised when possible.
+     * User’s phone number. E.164 preferred; other formats are normalised when possible.
      */
     phone?: string | null;
     /**
@@ -1316,7 +1739,7 @@ export type ContactUpsertByExternalId = {
      */
     locale?: string | null;
     /**
-     * Free-form custom attributes attached to the contact. Used in segmentation and template rendering.
+     * Free-form custom attributes attached to the user. Used in segmentation and template rendering.
      */
     data?: {
         [key: string]: unknown;
@@ -1324,14 +1747,82 @@ export type ContactUpsertByExternalId = {
 };
 
 /**
- * A single contact upsert. At least one of `anonymous_id` or `external_id` must be present. When both are present they are linked.
+ * A single user upsert. At least one of `anonymous_id` or `external_id` must be present. When both are present they are linked.
  */
-export type ContactUpsertItem = ContactUpsertByAnonymousId | ContactUpsertByExternalId;
+export type UserUpsertItem = UserUpsertByAnonymousId | UserUpsertByExternalId;
 
 /**
- * Up to 100 contact upserts per request. Processed asynchronously; the response is 204.
+ * Up to 100 user upserts per request. Processed asynchronously; the response is 204.
  */
-export type ContactBatchUpsert = Array<ContactUpsertItem>;
+export type UserBatchUpsert = Array<UserUpsertItem>;
+
+/**
+ * Failure detail, present when the item could not be persisted.
+ */
+export type UserBatchItemError = {
+    code: ErrorCode & unknown;
+    /**
+     * Human-readable, en-AU explanation of why this item failed.
+     */
+    message: string;
+};
+
+/**
+ * Outcome of a single user upsert in a bulk request. Exactly one of `user` or `error` is present.
+ */
+export type UserBatchResult = {
+    /**
+     * Position of this item in the request body, zero-indexed.
+     */
+    index: number;
+    /**
+     * External identifier supplied by the caller for this user, when available.
+     */
+    external_id?: string | null;
+    /**
+     * Anonymous identifier supplied by the caller for this user, when available.
+     */
+    anonymous_id?: string | null;
+    user?: User & unknown;
+    error?: UserBatchItemError;
+};
+
+/**
+ * Synchronous result of a bulk user upsert. Partial success is allowed.
+ */
+export type UserBatchSyncResponse = {
+    /**
+     * Per-item outcomes in the same order as the request body.
+     */
+    results: Array<UserBatchResult>;
+    /**
+     * Count of items that upserted successfully.
+     */
+    succeeded: number;
+    /**
+     * Count of items that failed.
+     */
+    failed: number;
+};
+
+/**
+ * Up to 100 user upserts per request. Processed synchronously — the response reports success or failure per item before returning. Use `PATCH /users` instead when fire-and-forget queuing is sufficient.
+ */
+export type UserBatchSyncRequest = Array<UserUpsertItem>;
+
+/**
+ * A short-lived user session token. Tokens are bound to one project and one user, expire after 15 minutes, and are not refreshable.
+ */
+export type UserSessionResponse = {
+    /**
+     * Short-lived signed token that scopes subsequent calls to this user. Pass in the `X-Spotzee-User-Token` header alongside a publishable key (`pk_…`) to call the preference-centre endpoints. Treat as bearer credentials — never log or persist.
+     */
+    token: string;
+    /**
+     * Token expiry. ISO 8601. Tokens are not refreshable — issue a new one when expired.
+     */
+    expires_at: string | null;
+};
 
 /**
  * A simple label that can be applied to contacts, segments, lists, templates, and campaigns.
@@ -1479,6 +1970,45 @@ export type ProjectApiKeyUpdate = {
 export type ApiKeyRevokeResponse = unknown;
 
 /**
+ * Top-level tenant. Owns one or more projects and is the security boundary for organisation API keys. Internal billing, usage counters, and identity-provider configuration are not exposed on the public API.
+ */
+export type Organization = {
+    /**
+     * Numeric organisation identifier.
+     */
+    id: number;
+    /**
+     * Stable URL-safe slug identifying the organisation.
+     */
+    username: string;
+    /**
+     * Primary domain associated with the organisation, if configured.
+     */
+    domain?: string | null;
+    /**
+     * Time the organisation was created. ISO 8601.
+     */
+    created_at: string | null;
+    /**
+     * Time the organisation was last modified. ISO 8601.
+     */
+    updated_at: string | null;
+};
+
+/**
+ * Role the calling key or session holds on the organisation.
+ */
+export type OrganizationCallerRole = 'member' | 'admin' | 'owner';
+
+/**
+ * Identifies the organisation and the caller’s role on that organisation.
+ */
+export type OrgMeResponse = {
+    organization: Organization;
+    role: OrganizationCallerRole;
+};
+
+/**
  * Role granted to the API key on the organisation. Cannot exceed the creator’s own role.
  */
 export type OrganizationRole = 'member' | 'admin' | 'owner';
@@ -1554,6 +2084,275 @@ export type OrganizationApiKeyUpdate = {
  */
 export type OrganizationApiKeyRevokeResponse = unknown;
 
+/**
+ * Lifecycle state of the endpoint. `active` receives events; `inactive` is paused by the user; `disabled` was suspended by the system after repeated delivery failures.
+ */
+export type WebhookStatus = 'active' | 'inactive' | 'disabled';
+
+/**
+ * Event the endpoint is subscribed to. Each event identifies a queue, delivery, reputation, or infrastructure signal. See the events reference for full descriptions.
+ */
+export type WebhookEventType = 'queue.queue-message-authenticated' | 'queue.rescheduled' | 'queue.quota-exceeded' | 'delivery.concurrency-limit-exceeded' | 'delivery.attempt-start' | 'delivery.attempt-end' | 'delivery.completed' | 'delivery.delivered' | 'delivery.dsn-perm-fail' | 'delivery.dsn-temp-fail' | 'delivery.failed' | 'delivery.mail-from-rejected' | 'delivery.message-rejected' | 'delivery.rcpt-to-rejected' | 'delivery.rcpt-to-failed' | 'delivery.mx-lookup-failed' | 'delivery.ip-lookup-failed' | 'delivery.null-mx' | 'delivery.connect-error' | 'delivery.greeting-failed' | 'delivery.ehlo-rejected' | 'delivery.start-tls-error' | 'delivery.start-tls-unavailable' | 'delivery.implicit-tls-error' | 'incoming-report.abuse-report' | 'incoming-report.fraud-report' | 'incoming-report.virus-report';
+
+/**
+ * Configured destination that receives signed event payloads when subscribed events fire. Verify each delivery using the `Spotzee-Signature` header — `t=<unix-ts>,v1=<hex-hmac-sha256>` — with HMAC-SHA-256 over `"<unix-ts>.<raw-request-body>"` keyed by the signing secret. Reject signatures whose timestamp is more than 5 minutes from now.
+ */
+export type WebhookEndpoint = {
+    /**
+     * Numeric webhook endpoint identifier.
+     */
+    id: number;
+    /**
+     * Identifier of the owning project.
+     */
+    project_id: number;
+    /**
+     * Human-readable name shown in dashboards.
+     */
+    name: string;
+    /**
+     * Optional free-text note describing the endpoint.
+     */
+    description?: string | null;
+    /**
+     * HTTPS URL the signed event payload will be POSTed to.
+     */
+    url: string;
+    status: WebhookStatus;
+    /**
+     * Events the endpoint is subscribed to.
+     */
+    event_types: Array<WebhookEventType>;
+    /**
+     * Whether a signing secret is currently configured. The plaintext secret itself is only returned on create and on rotate — never re-fetched.
+     */
+    has_secret: boolean;
+    /**
+     * Time the endpoint was created. ISO 8601.
+     */
+    created_at: string | null;
+    /**
+     * Time the endpoint was last modified. ISO 8601.
+     */
+    updated_at: string | null;
+};
+
+/**
+ * Paginated response of `WebhookEndpointList`.
+ */
+export type WebhookEndpointList = {
+    /**
+     * Page of results, ordered per the request’s `sort` and `direction`.
+     */
+    results: Array<WebhookEndpoint>;
+    /**
+     * Opaque cursor for the next page. `null` when no further pages exist.
+     */
+    nextCursor: string | null;
+    /**
+     * Opaque cursor for the previous page. `null` when on the first page.
+     */
+    prevCursor: string | null;
+    /**
+     * Page size used to build this response.
+     */
+    limit: number;
+};
+
+/**
+ * Webhook endpoint plus the one-time-visible plaintext signing secret. Returned only by `POST /webhooks` and `POST /webhooks/{endpointId}/rotate-secret`. Subsequent reads omit the plaintext; only `has_secret: true/false` is exposed.
+ */
+export type WebhookEndpointWithSigningSecret = WebhookEndpoint & {
+    /**
+     * Plaintext signing secret. Returned exactly once — store it securely now. Use this value as the HMAC key when verifying `Spotzee-Signature` on inbound deliveries.
+     */
+    signing_secret: string;
+};
+
+/**
+ * Create a new webhook endpoint. The plaintext signing secret is returned exactly once in the response — store it immediately; it cannot be re-fetched.
+ */
+export type WebhookEndpointCreate = {
+    /**
+     * Human-readable name shown in dashboards.
+     */
+    name: string;
+    /**
+     * Optional free-text note describing the endpoint.
+     */
+    description?: string | null;
+    /**
+     * HTTPS URL the signed event payload will be POSTed to.
+     */
+    url: string;
+    /**
+     * Events the endpoint should subscribe to. At least one is required.
+     */
+    event_types: Array<WebhookEventType>;
+    /**
+     * Optional caller-supplied signing secret. If omitted, a cryptographically random secret is generated and returned in the response. Marked `writeOnly` — never echoed back on subsequent reads.
+     */
+    signing_secret?: string;
+};
+
+/**
+ * One-time-visible signing secret returned by `POST /webhooks/{endpointId}/rotate-secret`. Persist it and update any downstream verifier before the next event fires.
+ */
+export type WebhookSigningSecret = {
+    /**
+     * New plaintext signing secret. Returned exactly once — store it now. The previous secret stops verifying deliveries the moment this call returns.
+     */
+    signing_secret: string;
+};
+
+/**
+ * Partial update of a webhook endpoint. To rotate the signing secret, use `POST /webhooks/{endpointId}/rotate-secret` instead.
+ */
+export type WebhookEndpointUpdate = {
+    /**
+     * Human-readable name shown in dashboards.
+     */
+    name?: string;
+    /**
+     * Optional free-text note describing the endpoint.
+     */
+    description?: string | null;
+    /**
+     * HTTPS URL the signed event payload will be POSTed to.
+     */
+    url?: string;
+    status?: WebhookStatus & unknown;
+    /**
+     * Replace the set of subscribed events. At least one is required.
+     */
+    event_types?: Array<WebhookEventType>;
+};
+
+export type ListProjectsData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * Opaque cursor returned by a previous page response. Omit on the first request.
+         */
+        cursor?: string;
+        page?: PageDirection;
+        /**
+         * Maximum results per page. Use `-1` to request all (rate-limited; large pages may be rejected).
+         */
+        limit?: number | null;
+        /**
+         * Field to sort by. Defaults vary per resource.
+         */
+        sort?: string;
+        direction?: SortDirection;
+        /**
+         * Free-text search across the resource’s indexed fields.
+         */
+        q?: string;
+    };
+    url: '/projects';
+};
+
+export type ListProjectsErrors = {
+    /**
+     * Malformed request — bad parameters, body, or version header.
+     */
+    400: ErrorResponse;
+    /**
+     * Authentication required or the supplied API key is invalid.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated, but the credential lacks scope or role for this resource.
+     */
+    403: ErrorResponse;
+    /**
+     * The referenced resource does not exist or is not visible to this key.
+     */
+    404: ErrorResponse;
+    /**
+     * Conflict — duplicate resource or idempotency-key body mismatch.
+     */
+    409: ErrorResponse;
+    /**
+     * Request was syntactically valid but semantically rejected (failed validation).
+     */
+    422: ErrorResponse;
+    /**
+     * Rate-limit bucket exhausted. Honour `Retry-After`.
+     */
+    429: ErrorResponse;
+    /**
+     * Unhandled server error. `request_id` should be reported to support.
+     */
+    500: ErrorResponse;
+};
+
+export type ListProjectsError = ListProjectsErrors[keyof ListProjectsErrors];
+
+export type ListProjectsResponses = {
+    /**
+     * A page of projects.
+     */
+    200: OrgProjectList;
+};
+
+export type ListProjectsResponse = ListProjectsResponses[keyof ListProjectsResponses];
+
+export type CreateProjectData = {
+    body?: OrgProjectCreate;
+    path?: never;
+    query?: never;
+    url: '/projects';
+};
+
+export type CreateProjectErrors = {
+    /**
+     * Malformed request — bad parameters, body, or version header.
+     */
+    400: ErrorResponse;
+    /**
+     * Authentication required or the supplied API key is invalid.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated, but the credential lacks scope or role for this resource.
+     */
+    403: ErrorResponse;
+    /**
+     * The referenced resource does not exist or is not visible to this key.
+     */
+    404: ErrorResponse;
+    /**
+     * Conflict — duplicate resource or idempotency-key body mismatch.
+     */
+    409: ErrorResponse;
+    /**
+     * Request was syntactically valid but semantically rejected (failed validation).
+     */
+    422: ErrorResponse;
+    /**
+     * Rate-limit bucket exhausted. Honour `Retry-After`.
+     */
+    429: ErrorResponse;
+    /**
+     * Unhandled server error. `request_id` should be reported to support.
+     */
+    500: ErrorResponse;
+};
+
+export type CreateProjectError = CreateProjectErrors[keyof CreateProjectErrors];
+
+export type CreateProjectResponses = {
+    /**
+     * The newly created project.
+     */
+    200: OrgProject;
+};
+
+export type CreateProjectResponse = CreateProjectResponses[keyof CreateProjectResponses];
+
 export type GetCurrentProjectData = {
     body?: never;
     path?: never;
@@ -1606,6 +2405,122 @@ export type GetCurrentProjectResponses = {
 };
 
 export type GetCurrentProjectResponse = GetCurrentProjectResponses[keyof GetCurrentProjectResponses];
+
+export type UpdateProjectData = {
+    body?: OrgProjectUpdate;
+    path?: {
+        /**
+         * Numeric project identifier.
+         */
+        projectId?: number | null;
+    };
+    query?: never;
+    url: '/projects/{projectId}';
+};
+
+export type UpdateProjectErrors = {
+    /**
+     * Malformed request — bad parameters, body, or version header.
+     */
+    400: ErrorResponse;
+    /**
+     * Authentication required or the supplied API key is invalid.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated, but the credential lacks scope or role for this resource.
+     */
+    403: ErrorResponse;
+    /**
+     * The referenced resource does not exist or is not visible to this key.
+     */
+    404: ErrorResponse;
+    /**
+     * Conflict — duplicate resource or idempotency-key body mismatch.
+     */
+    409: ErrorResponse;
+    /**
+     * Request was syntactically valid but semantically rejected (failed validation).
+     */
+    422: ErrorResponse;
+    /**
+     * Rate-limit bucket exhausted. Honour `Retry-After`.
+     */
+    429: ErrorResponse;
+    /**
+     * Unhandled server error. `request_id` should be reported to support.
+     */
+    500: ErrorResponse;
+};
+
+export type UpdateProjectError = UpdateProjectErrors[keyof UpdateProjectErrors];
+
+export type UpdateProjectResponses = {
+    /**
+     * The updated project.
+     */
+    200: OrgProject;
+};
+
+export type UpdateProjectResponse = UpdateProjectResponses[keyof UpdateProjectResponses];
+
+export type SubmitProjectOnboardingMetadataData = {
+    body?: OrgOnboardingMetadataCreate;
+    path?: {
+        /**
+         * Numeric project identifier.
+         */
+        projectId?: number | null;
+    };
+    query?: never;
+    url: '/projects/{projectId}/onboarding-metadata';
+};
+
+export type SubmitProjectOnboardingMetadataErrors = {
+    /**
+     * Malformed request — bad parameters, body, or version header.
+     */
+    400: ErrorResponse;
+    /**
+     * Authentication required or the supplied API key is invalid.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated, but the credential lacks scope or role for this resource.
+     */
+    403: ErrorResponse;
+    /**
+     * The referenced resource does not exist or is not visible to this key.
+     */
+    404: ErrorResponse;
+    /**
+     * Conflict — duplicate resource or idempotency-key body mismatch.
+     */
+    409: ErrorResponse;
+    /**
+     * Request was syntactically valid but semantically rejected (failed validation).
+     */
+    422: ErrorResponse;
+    /**
+     * Rate-limit bucket exhausted. Honour `Retry-After`.
+     */
+    429: ErrorResponse;
+    /**
+     * Unhandled server error. `request_id` should be reported to support.
+     */
+    500: ErrorResponse;
+};
+
+export type SubmitProjectOnboardingMetadataError = SubmitProjectOnboardingMetadataErrors[keyof SubmitProjectOnboardingMetadataErrors];
+
+export type SubmitProjectOnboardingMetadataResponses = {
+    /**
+     * The persisted onboarding metadata record.
+     */
+    200: OrgOnboardingMetadata;
+};
+
+export type SubmitProjectOnboardingMetadataResponse = SubmitProjectOnboardingMetadataResponses[keyof SubmitProjectOnboardingMetadataResponses];
 
 export type TrackEventsData = {
     body?: EventBatch;
@@ -2432,6 +3347,59 @@ export type UpdateListResponses = {
 
 export type UpdateListResponse = UpdateListResponses[keyof UpdateListResponses];
 
+export type UpdateCurrentUserSubscriptionsData = {
+    body?: UserSubscriptionToggle;
+    path?: never;
+    query?: never;
+    url: '/subscriptions/me';
+};
+
+export type UpdateCurrentUserSubscriptionsErrors = {
+    /**
+     * Malformed request — bad parameters, body, or version header.
+     */
+    400: ErrorResponse;
+    /**
+     * Authentication required or the supplied API key is invalid.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated, but the credential lacks scope or role for this resource.
+     */
+    403: ErrorResponse;
+    /**
+     * The referenced resource does not exist or is not visible to this key.
+     */
+    404: ErrorResponse;
+    /**
+     * Conflict — duplicate resource or idempotency-key body mismatch.
+     */
+    409: ErrorResponse;
+    /**
+     * Request was syntactically valid but semantically rejected (failed validation).
+     */
+    422: ErrorResponse;
+    /**
+     * Rate-limit bucket exhausted. Honour `Retry-After`.
+     */
+    429: ErrorResponse;
+    /**
+     * Unhandled server error. `request_id` should be reported to support.
+     */
+    500: ErrorResponse;
+};
+
+export type UpdateCurrentUserSubscriptionsError = UpdateCurrentUserSubscriptionsErrors[keyof UpdateCurrentUserSubscriptionsErrors];
+
+export type UpdateCurrentUserSubscriptionsResponses = {
+    /**
+     * The refreshed subscription states for the user bound to the session.
+     */
+    200: UserSubscriptionList;
+};
+
+export type UpdateCurrentUserSubscriptionsResponse = UpdateCurrentUserSubscriptionsResponses[keyof UpdateCurrentUserSubscriptionsResponses];
+
 export type ListSubscriptionsData = {
     body?: never;
     path?: never;
@@ -2552,7 +3520,7 @@ export type CreateSubscriptionResponses = {
     /**
      * The newly created subscription type.
      */
-    200: Subscription;
+    200: Subscription & unknown;
 };
 
 export type CreateSubscriptionResponse = CreateSubscriptionResponses[keyof CreateSubscriptionResponses];
@@ -2610,7 +3578,7 @@ export type GetSubscriptionResponses = {
     /**
      * The requested subscription type.
      */
-    200: Subscription;
+    200: Subscription & unknown;
 };
 
 export type GetSubscriptionResponse = GetSubscriptionResponses[keyof GetSubscriptionResponses];
@@ -2668,10 +3636,63 @@ export type UpdateSubscriptionResponses = {
     /**
      * The updated subscription type.
      */
-    200: Subscription;
+    200: Subscription & unknown;
 };
 
 export type UpdateSubscriptionResponse = UpdateSubscriptionResponses[keyof UpdateSubscriptionResponses];
+
+export type BatchToggleSubscriptionsData = {
+    body?: SubscriptionBatchToggleRequest;
+    path?: never;
+    query?: never;
+    url: '/subscriptions/batch';
+};
+
+export type BatchToggleSubscriptionsErrors = {
+    /**
+     * Malformed request — bad parameters, body, or version header.
+     */
+    400: ErrorResponse;
+    /**
+     * Authentication required or the supplied API key is invalid.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated, but the credential lacks scope or role for this resource.
+     */
+    403: ErrorResponse;
+    /**
+     * The referenced resource does not exist or is not visible to this key.
+     */
+    404: ErrorResponse;
+    /**
+     * Conflict — duplicate resource or idempotency-key body mismatch.
+     */
+    409: ErrorResponse;
+    /**
+     * Request was syntactically valid but semantically rejected (failed validation).
+     */
+    422: ErrorResponse;
+    /**
+     * Rate-limit bucket exhausted. Honour `Retry-After`.
+     */
+    429: ErrorResponse;
+    /**
+     * Unhandled server error. `request_id` should be reported to support.
+     */
+    500: ErrorResponse;
+};
+
+export type BatchToggleSubscriptionsError = BatchToggleSubscriptionsErrors[keyof BatchToggleSubscriptionsErrors];
+
+export type BatchToggleSubscriptionsResponses = {
+    /**
+     * Per-item toggle outcomes. Partial success is allowed.
+     */
+    200: SubscriptionBatchToggleResponse;
+};
+
+export type BatchToggleSubscriptionsResponse = BatchToggleSubscriptionsResponses[keyof BatchToggleSubscriptionsResponses];
 
 export type ListJourneysData = {
     body?: never;
@@ -3445,7 +4466,7 @@ export type SendTemplateProofResponses = {
 
 export type SendTemplateProofResponse = SendTemplateProofResponses[keyof SendTemplateProofResponses];
 
-export type DeleteContactsBatchData = {
+export type DeleteUsersBatchData = {
     body?: never;
     path?: never;
     query: {
@@ -3457,7 +4478,7 @@ export type DeleteContactsBatchData = {
     url: '/users';
 };
 
-export type DeleteContactsBatchErrors = {
+export type DeleteUsersBatchErrors = {
     /**
      * Malformed request — bad parameters, body, or version header.
      */
@@ -3492,18 +4513,18 @@ export type DeleteContactsBatchErrors = {
     500: ErrorResponse;
 };
 
-export type DeleteContactsBatchError = DeleteContactsBatchErrors[keyof DeleteContactsBatchErrors];
+export type DeleteUsersBatchError = DeleteUsersBatchErrors[keyof DeleteUsersBatchErrors];
 
-export type DeleteContactsBatchResponses = {
+export type DeleteUsersBatchResponses = {
     /**
      * The batch was accepted for asynchronous processing.
      */
     204: NoContent;
 };
 
-export type DeleteContactsBatchResponse = DeleteContactsBatchResponses[keyof DeleteContactsBatchResponses];
+export type DeleteUsersBatchResponse = DeleteUsersBatchResponses[keyof DeleteUsersBatchResponses];
 
-export type ListContactsData = {
+export type ListUsersData = {
     body?: never;
     path?: never;
     query?: {
@@ -3529,7 +4550,7 @@ export type ListContactsData = {
     url: '/users';
 };
 
-export type ListContactsErrors = {
+export type ListUsersErrors = {
     /**
      * Malformed request — bad parameters, body, or version header.
      */
@@ -3564,25 +4585,25 @@ export type ListContactsErrors = {
     500: ErrorResponse;
 };
 
-export type ListContactsError = ListContactsErrors[keyof ListContactsErrors];
+export type ListUsersError = ListUsersErrors[keyof ListUsersErrors];
 
-export type ListContactsResponses = {
+export type ListUsersResponses = {
     /**
-     * A page of contacts.
+     * A page of users.
      */
-    200: ContactList;
+    200: UserList;
 };
 
-export type ListContactsResponse = ListContactsResponses[keyof ListContactsResponses];
+export type ListUsersResponse = ListUsersResponses[keyof ListUsersResponses];
 
-export type UpsertContactsData = {
-    body?: ContactBatchUpsert;
+export type UpsertUsersData = {
+    body?: UserBatchUpsert;
     path?: never;
     query?: never;
     url: '/users';
 };
 
-export type UpsertContactsErrors = {
+export type UpsertUsersErrors = {
     /**
      * Malformed request — bad parameters, body, or version header.
      */
@@ -3617,30 +4638,25 @@ export type UpsertContactsErrors = {
     500: ErrorResponse;
 };
 
-export type UpsertContactsError = UpsertContactsErrors[keyof UpsertContactsErrors];
+export type UpsertUsersError = UpsertUsersErrors[keyof UpsertUsersErrors];
 
-export type UpsertContactsResponses = {
+export type UpsertUsersResponses = {
     /**
      * The batch was accepted for asynchronous processing.
      */
     204: NoContent;
 };
 
-export type UpsertContactsResponse = UpsertContactsResponses[keyof UpsertContactsResponses];
+export type UpsertUsersResponse = UpsertUsersResponses[keyof UpsertUsersResponses];
 
-export type DeleteContactData = {
-    body?: never;
-    path: {
-        /**
-         * Numeric ID (admin scope) or contact `external_id` (project scope) — the route resolves both.
-         */
-        userId: string;
-    };
+export type BatchUpsertUsersData = {
+    body?: UserBatchSyncRequest;
+    path?: never;
     query?: never;
-    url: '/users/{userId}';
+    url: '/users/batch';
 };
 
-export type DeleteContactErrors = {
+export type BatchUpsertUsersErrors = {
     /**
      * Malformed request — bad parameters, body, or version header.
      */
@@ -3675,22 +4691,133 @@ export type DeleteContactErrors = {
     500: ErrorResponse;
 };
 
-export type DeleteContactError = DeleteContactErrors[keyof DeleteContactErrors];
+export type BatchUpsertUsersError = BatchUpsertUsersErrors[keyof BatchUpsertUsersErrors];
 
-export type DeleteContactResponses = {
+export type BatchUpsertUsersResponses = {
+    /**
+     * Per-item upsert outcomes. Partial success is allowed.
+     */
+    200: UserBatchSyncResponse;
+};
+
+export type BatchUpsertUsersResponse = BatchUpsertUsersResponses[keyof BatchUpsertUsersResponses];
+
+export type GetCurrentUserData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/users/me';
+};
+
+export type GetCurrentUserErrors = {
+    /**
+     * Malformed request — bad parameters, body, or version header.
+     */
+    400: ErrorResponse;
+    /**
+     * Authentication required or the supplied API key is invalid.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated, but the credential lacks scope or role for this resource.
+     */
+    403: ErrorResponse;
+    /**
+     * The referenced resource does not exist or is not visible to this key.
+     */
+    404: ErrorResponse;
+    /**
+     * Conflict — duplicate resource or idempotency-key body mismatch.
+     */
+    409: ErrorResponse;
+    /**
+     * Request was syntactically valid but semantically rejected (failed validation).
+     */
+    422: ErrorResponse;
+    /**
+     * Rate-limit bucket exhausted. Honour `Retry-After`.
+     */
+    429: ErrorResponse;
+    /**
+     * Unhandled server error. `request_id` should be reported to support.
+     */
+    500: ErrorResponse;
+};
+
+export type GetCurrentUserError = GetCurrentUserErrors[keyof GetCurrentUserErrors];
+
+export type GetCurrentUserResponses = {
+    /**
+     * The user bound to the session token.
+     */
+    200: User;
+};
+
+export type GetCurrentUserResponse = GetCurrentUserResponses[keyof GetCurrentUserResponses];
+
+export type DeleteUserData = {
+    body?: never;
+    path: {
+        /**
+         * Numeric ID (admin scope) or user `external_id` (project scope) — the route resolves both.
+         */
+        userId: string;
+    };
+    query?: never;
+    url: '/users/{userId}';
+};
+
+export type DeleteUserErrors = {
+    /**
+     * Malformed request — bad parameters, body, or version header.
+     */
+    400: ErrorResponse;
+    /**
+     * Authentication required or the supplied API key is invalid.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated, but the credential lacks scope or role for this resource.
+     */
+    403: ErrorResponse;
+    /**
+     * The referenced resource does not exist or is not visible to this key.
+     */
+    404: ErrorResponse;
+    /**
+     * Conflict — duplicate resource or idempotency-key body mismatch.
+     */
+    409: ErrorResponse;
+    /**
+     * Request was syntactically valid but semantically rejected (failed validation).
+     */
+    422: ErrorResponse;
+    /**
+     * Rate-limit bucket exhausted. Honour `Retry-After`.
+     */
+    429: ErrorResponse;
+    /**
+     * Unhandled server error. `request_id` should be reported to support.
+     */
+    500: ErrorResponse;
+};
+
+export type DeleteUserError = DeleteUserErrors[keyof DeleteUserErrors];
+
+export type DeleteUserResponses = {
     /**
      * The deletion was accepted for asynchronous processing.
      */
     204: NoContent;
 };
 
-export type DeleteContactResponse = DeleteContactResponses[keyof DeleteContactResponses];
+export type DeleteUserResponse = DeleteUserResponses[keyof DeleteUserResponses];
 
-export type GetContactData = {
+export type GetUserData = {
     body?: never;
     path: {
         /**
-         * Numeric ID (admin scope) or contact `external_id` (project scope) — the route resolves both.
+         * Numeric ID (admin scope) or user `external_id` (project scope) — the route resolves both.
          */
         userId: string;
     };
@@ -3698,7 +4825,7 @@ export type GetContactData = {
     url: '/users/{userId}';
 };
 
-export type GetContactErrors = {
+export type GetUserErrors = {
     /**
      * Malformed request — bad parameters, body, or version header.
      */
@@ -3733,16 +4860,209 @@ export type GetContactErrors = {
     500: ErrorResponse;
 };
 
-export type GetContactError = GetContactErrors[keyof GetContactErrors];
+export type GetUserError = GetUserErrors[keyof GetUserErrors];
 
-export type GetContactResponses = {
+export type GetUserResponses = {
     /**
-     * The requested contact.
+     * The requested user.
      */
-    200: Contact;
+    200: User;
 };
 
-export type GetContactResponse = GetContactResponses[keyof GetContactResponses];
+export type GetUserResponse = GetUserResponses[keyof GetUserResponses];
+
+export type ListUserSubscriptionsData = {
+    body?: never;
+    path: {
+        /**
+         * Numeric ID (admin scope) or user `external_id` (project scope) — the route resolves both.
+         */
+        userId: string;
+    };
+    query?: {
+        /**
+         * Opaque cursor returned by a previous page response. Omit on the first request.
+         */
+        cursor?: string;
+        page?: PageDirection;
+        /**
+         * Maximum results per page. Use `-1` to request all (rate-limited; large pages may be rejected).
+         */
+        limit?: number | null;
+        /**
+         * Field to sort by. Defaults vary per resource.
+         */
+        sort?: string;
+        direction?: SortDirection;
+        /**
+         * Free-text search across the resource’s indexed fields.
+         */
+        q?: string;
+    };
+    url: '/users/{userId}/subscriptions';
+};
+
+export type ListUserSubscriptionsErrors = {
+    /**
+     * Malformed request — bad parameters, body, or version header.
+     */
+    400: ErrorResponse;
+    /**
+     * Authentication required or the supplied API key is invalid.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated, but the credential lacks scope or role for this resource.
+     */
+    403: ErrorResponse;
+    /**
+     * The referenced resource does not exist or is not visible to this key.
+     */
+    404: ErrorResponse;
+    /**
+     * Conflict — duplicate resource or idempotency-key body mismatch.
+     */
+    409: ErrorResponse;
+    /**
+     * Request was syntactically valid but semantically rejected (failed validation).
+     */
+    422: ErrorResponse;
+    /**
+     * Rate-limit bucket exhausted. Honour `Retry-After`.
+     */
+    429: ErrorResponse;
+    /**
+     * Unhandled server error. `request_id` should be reported to support.
+     */
+    500: ErrorResponse;
+};
+
+export type ListUserSubscriptionsError = ListUserSubscriptionsErrors[keyof ListUserSubscriptionsErrors];
+
+export type ListUserSubscriptionsResponses = {
+    /**
+     * A page of subscription states for the user.
+     */
+    200: UserSubscriptionList;
+};
+
+export type ListUserSubscriptionsResponse = ListUserSubscriptionsResponses[keyof ListUserSubscriptionsResponses];
+
+export type ToggleUserSubscriptionsData = {
+    body?: UserSubscriptionToggle;
+    path: {
+        /**
+         * Numeric ID (admin scope) or user `external_id` (project scope) — the route resolves both.
+         */
+        userId: string;
+    };
+    query?: never;
+    url: '/users/{userId}/subscriptions';
+};
+
+export type ToggleUserSubscriptionsErrors = {
+    /**
+     * Malformed request — bad parameters, body, or version header.
+     */
+    400: ErrorResponse;
+    /**
+     * Authentication required or the supplied API key is invalid.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated, but the credential lacks scope or role for this resource.
+     */
+    403: ErrorResponse;
+    /**
+     * The referenced resource does not exist or is not visible to this key.
+     */
+    404: ErrorResponse;
+    /**
+     * Conflict — duplicate resource or idempotency-key body mismatch.
+     */
+    409: ErrorResponse;
+    /**
+     * Request was syntactically valid but semantically rejected (failed validation).
+     */
+    422: ErrorResponse;
+    /**
+     * Rate-limit bucket exhausted. Honour `Retry-After`.
+     */
+    429: ErrorResponse;
+    /**
+     * Unhandled server error. `request_id` should be reported to support.
+     */
+    500: ErrorResponse;
+};
+
+export type ToggleUserSubscriptionsError = ToggleUserSubscriptionsErrors[keyof ToggleUserSubscriptionsErrors];
+
+export type ToggleUserSubscriptionsResponses = {
+    /**
+     * The user, refreshed after the toggle.
+     */
+    200: User;
+};
+
+export type ToggleUserSubscriptionsResponse = ToggleUserSubscriptionsResponses[keyof ToggleUserSubscriptionsResponses];
+
+export type CreateUserSessionData = {
+    body?: never;
+    path: {
+        /**
+         * Numeric ID (admin scope) or user `external_id` (project scope) — the route resolves both.
+         */
+        userId: string;
+    };
+    query?: never;
+    url: '/users/{userId}/sessions';
+};
+
+export type CreateUserSessionErrors = {
+    /**
+     * Malformed request — bad parameters, body, or version header.
+     */
+    400: ErrorResponse;
+    /**
+     * Authentication required or the supplied API key is invalid.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated, but the credential lacks scope or role for this resource.
+     */
+    403: ErrorResponse;
+    /**
+     * The referenced resource does not exist or is not visible to this key.
+     */
+    404: ErrorResponse;
+    /**
+     * Conflict — duplicate resource or idempotency-key body mismatch.
+     */
+    409: ErrorResponse;
+    /**
+     * Request was syntactically valid but semantically rejected (failed validation).
+     */
+    422: ErrorResponse;
+    /**
+     * Rate-limit bucket exhausted. Honour `Retry-After`.
+     */
+    429: ErrorResponse;
+    /**
+     * Unhandled server error. `request_id` should be reported to support.
+     */
+    500: ErrorResponse;
+};
+
+export type CreateUserSessionError = CreateUserSessionErrors[keyof CreateUserSessionErrors];
+
+export type CreateUserSessionResponses = {
+    /**
+     * A new user session token.
+     */
+    200: UserSessionResponse;
+};
+
+export type CreateUserSessionResponse = CreateUserSessionResponses[keyof CreateUserSessionResponses];
 
 export type ListTagsData = {
     body?: never;
@@ -4342,6 +5662,59 @@ export type UpdateProjectApiKeyResponses = {
 
 export type UpdateProjectApiKeyResponse = UpdateProjectApiKeyResponses[keyof UpdateProjectApiKeyResponses];
 
+export type GetCurrentOrganizationData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/organizations/me';
+};
+
+export type GetCurrentOrganizationErrors = {
+    /**
+     * Malformed request — bad parameters, body, or version header.
+     */
+    400: ErrorResponse;
+    /**
+     * Authentication required or the supplied API key is invalid.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated, but the credential lacks scope or role for this resource.
+     */
+    403: ErrorResponse;
+    /**
+     * The referenced resource does not exist or is not visible to this key.
+     */
+    404: ErrorResponse;
+    /**
+     * Conflict — duplicate resource or idempotency-key body mismatch.
+     */
+    409: ErrorResponse;
+    /**
+     * Request was syntactically valid but semantically rejected (failed validation).
+     */
+    422: ErrorResponse;
+    /**
+     * Rate-limit bucket exhausted. Honour `Retry-After`.
+     */
+    429: ErrorResponse;
+    /**
+     * Unhandled server error. `request_id` should be reported to support.
+     */
+    500: ErrorResponse;
+};
+
+export type GetCurrentOrganizationError = GetCurrentOrganizationErrors[keyof GetCurrentOrganizationErrors];
+
+export type GetCurrentOrganizationResponses = {
+    /**
+     * Organisation and caller role.
+     */
+    200: OrgMeResponse;
+};
+
+export type GetCurrentOrganizationResponse = GetCurrentOrganizationResponses[keyof GetCurrentOrganizationResponses];
+
 export type ListOrganizationApiKeysData = {
     body?: never;
     path?: never;
@@ -4640,3 +6013,360 @@ export type UpdateOrganizationApiKeyResponses = {
 };
 
 export type UpdateOrganizationApiKeyResponse = UpdateOrganizationApiKeyResponses[keyof UpdateOrganizationApiKeyResponses];
+
+export type ListWebhookEndpointsData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * Opaque cursor returned by a previous page response. Omit on the first request.
+         */
+        cursor?: string;
+        page?: PageDirection;
+        /**
+         * Maximum results per page. Use `-1` to request all (rate-limited; large pages may be rejected).
+         */
+        limit?: number | null;
+        /**
+         * Field to sort by. Defaults vary per resource.
+         */
+        sort?: string;
+        direction?: SortDirection;
+        /**
+         * Free-text search across the resource’s indexed fields.
+         */
+        q?: string;
+    };
+    url: '/webhooks';
+};
+
+export type ListWebhookEndpointsErrors = {
+    /**
+     * Malformed request — bad parameters, body, or version header.
+     */
+    400: ErrorResponse;
+    /**
+     * Authentication required or the supplied API key is invalid.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated, but the credential lacks scope or role for this resource.
+     */
+    403: ErrorResponse;
+    /**
+     * The referenced resource does not exist or is not visible to this key.
+     */
+    404: ErrorResponse;
+    /**
+     * Conflict — duplicate resource or idempotency-key body mismatch.
+     */
+    409: ErrorResponse;
+    /**
+     * Request was syntactically valid but semantically rejected (failed validation).
+     */
+    422: ErrorResponse;
+    /**
+     * Rate-limit bucket exhausted. Honour `Retry-After`.
+     */
+    429: ErrorResponse;
+    /**
+     * Unhandled server error. `request_id` should be reported to support.
+     */
+    500: ErrorResponse;
+};
+
+export type ListWebhookEndpointsError = ListWebhookEndpointsErrors[keyof ListWebhookEndpointsErrors];
+
+export type ListWebhookEndpointsResponses = {
+    /**
+     * A page of webhook endpoints.
+     */
+    200: WebhookEndpointList;
+};
+
+export type ListWebhookEndpointsResponse = ListWebhookEndpointsResponses[keyof ListWebhookEndpointsResponses];
+
+export type CreateWebhookEndpointData = {
+    body?: WebhookEndpointCreate;
+    path?: never;
+    query?: never;
+    url: '/webhooks';
+};
+
+export type CreateWebhookEndpointErrors = {
+    /**
+     * Malformed request — bad parameters, body, or version header.
+     */
+    400: ErrorResponse;
+    /**
+     * Authentication required or the supplied API key is invalid.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated, but the credential lacks scope or role for this resource.
+     */
+    403: ErrorResponse;
+    /**
+     * The referenced resource does not exist or is not visible to this key.
+     */
+    404: ErrorResponse;
+    /**
+     * Conflict — duplicate resource or idempotency-key body mismatch.
+     */
+    409: ErrorResponse;
+    /**
+     * Request was syntactically valid but semantically rejected (failed validation).
+     */
+    422: ErrorResponse;
+    /**
+     * Rate-limit bucket exhausted. Honour `Retry-After`.
+     */
+    429: ErrorResponse;
+    /**
+     * Unhandled server error. `request_id` should be reported to support.
+     */
+    500: ErrorResponse;
+};
+
+export type CreateWebhookEndpointError = CreateWebhookEndpointErrors[keyof CreateWebhookEndpointErrors];
+
+export type CreateWebhookEndpointResponses = {
+    /**
+     * The newly created webhook endpoint, including the one-time plaintext signing secret.
+     */
+    200: WebhookEndpointWithSigningSecret;
+};
+
+export type CreateWebhookEndpointResponse = CreateWebhookEndpointResponses[keyof CreateWebhookEndpointResponses];
+
+export type RotateWebhookEndpointSecretData = {
+    body?: never;
+    path?: {
+        /**
+         * Numeric webhook endpoint identifier.
+         */
+        endpointId?: number | null;
+    };
+    query?: never;
+    url: '/webhooks/{endpointId}/rotate-secret';
+};
+
+export type RotateWebhookEndpointSecretErrors = {
+    /**
+     * Malformed request — bad parameters, body, or version header.
+     */
+    400: ErrorResponse;
+    /**
+     * Authentication required or the supplied API key is invalid.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated, but the credential lacks scope or role for this resource.
+     */
+    403: ErrorResponse;
+    /**
+     * The referenced resource does not exist or is not visible to this key.
+     */
+    404: ErrorResponse;
+    /**
+     * Conflict — duplicate resource or idempotency-key body mismatch.
+     */
+    409: ErrorResponse;
+    /**
+     * Request was syntactically valid but semantically rejected (failed validation).
+     */
+    422: ErrorResponse;
+    /**
+     * Rate-limit bucket exhausted. Honour `Retry-After`.
+     */
+    429: ErrorResponse;
+    /**
+     * Unhandled server error. `request_id` should be reported to support.
+     */
+    500: ErrorResponse;
+};
+
+export type RotateWebhookEndpointSecretError = RotateWebhookEndpointSecretErrors[keyof RotateWebhookEndpointSecretErrors];
+
+export type RotateWebhookEndpointSecretResponses = {
+    /**
+     * The new plaintext signing secret.
+     */
+    200: WebhookSigningSecret;
+};
+
+export type RotateWebhookEndpointSecretResponse = RotateWebhookEndpointSecretResponses[keyof RotateWebhookEndpointSecretResponses];
+
+export type DeleteWebhookEndpointData = {
+    body?: never;
+    path?: {
+        /**
+         * Numeric webhook endpoint identifier.
+         */
+        endpointId?: number | null;
+    };
+    query?: never;
+    url: '/webhooks/{endpointId}';
+};
+
+export type DeleteWebhookEndpointErrors = {
+    /**
+     * Malformed request — bad parameters, body, or version header.
+     */
+    400: ErrorResponse;
+    /**
+     * Authentication required or the supplied API key is invalid.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated, but the credential lacks scope or role for this resource.
+     */
+    403: ErrorResponse;
+    /**
+     * The referenced resource does not exist or is not visible to this key.
+     */
+    404: ErrorResponse;
+    /**
+     * Conflict — duplicate resource or idempotency-key body mismatch.
+     */
+    409: ErrorResponse;
+    /**
+     * Request was syntactically valid but semantically rejected (failed validation).
+     */
+    422: ErrorResponse;
+    /**
+     * Rate-limit bucket exhausted. Honour `Retry-After`.
+     */
+    429: ErrorResponse;
+    /**
+     * Unhandled server error. `request_id` should be reported to support.
+     */
+    500: ErrorResponse;
+};
+
+export type DeleteWebhookEndpointError = DeleteWebhookEndpointErrors[keyof DeleteWebhookEndpointErrors];
+
+export type DeleteWebhookEndpointResponses = {
+    /**
+     * The endpoint was deleted. No content returned.
+     */
+    204: WebhookEndpoint;
+};
+
+export type DeleteWebhookEndpointResponse = DeleteWebhookEndpointResponses[keyof DeleteWebhookEndpointResponses];
+
+export type GetWebhookEndpointData = {
+    body?: never;
+    path?: {
+        /**
+         * Numeric webhook endpoint identifier.
+         */
+        endpointId?: number | null;
+    };
+    query?: never;
+    url: '/webhooks/{endpointId}';
+};
+
+export type GetWebhookEndpointErrors = {
+    /**
+     * Malformed request — bad parameters, body, or version header.
+     */
+    400: ErrorResponse;
+    /**
+     * Authentication required or the supplied API key is invalid.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated, but the credential lacks scope or role for this resource.
+     */
+    403: ErrorResponse;
+    /**
+     * The referenced resource does not exist or is not visible to this key.
+     */
+    404: ErrorResponse;
+    /**
+     * Conflict — duplicate resource or idempotency-key body mismatch.
+     */
+    409: ErrorResponse;
+    /**
+     * Request was syntactically valid but semantically rejected (failed validation).
+     */
+    422: ErrorResponse;
+    /**
+     * Rate-limit bucket exhausted. Honour `Retry-After`.
+     */
+    429: ErrorResponse;
+    /**
+     * Unhandled server error. `request_id` should be reported to support.
+     */
+    500: ErrorResponse;
+};
+
+export type GetWebhookEndpointError = GetWebhookEndpointErrors[keyof GetWebhookEndpointErrors];
+
+export type GetWebhookEndpointResponses = {
+    /**
+     * The requested webhook endpoint.
+     */
+    200: WebhookEndpoint;
+};
+
+export type GetWebhookEndpointResponse = GetWebhookEndpointResponses[keyof GetWebhookEndpointResponses];
+
+export type UpdateWebhookEndpointData = {
+    body?: WebhookEndpointUpdate;
+    path?: {
+        /**
+         * Numeric webhook endpoint identifier.
+         */
+        endpointId?: number | null;
+    };
+    query?: never;
+    url: '/webhooks/{endpointId}';
+};
+
+export type UpdateWebhookEndpointErrors = {
+    /**
+     * Malformed request — bad parameters, body, or version header.
+     */
+    400: ErrorResponse;
+    /**
+     * Authentication required or the supplied API key is invalid.
+     */
+    401: ErrorResponse;
+    /**
+     * Authenticated, but the credential lacks scope or role for this resource.
+     */
+    403: ErrorResponse;
+    /**
+     * The referenced resource does not exist or is not visible to this key.
+     */
+    404: ErrorResponse;
+    /**
+     * Conflict — duplicate resource or idempotency-key body mismatch.
+     */
+    409: ErrorResponse;
+    /**
+     * Request was syntactically valid but semantically rejected (failed validation).
+     */
+    422: ErrorResponse;
+    /**
+     * Rate-limit bucket exhausted. Honour `Retry-After`.
+     */
+    429: ErrorResponse;
+    /**
+     * Unhandled server error. `request_id` should be reported to support.
+     */
+    500: ErrorResponse;
+};
+
+export type UpdateWebhookEndpointError = UpdateWebhookEndpointErrors[keyof UpdateWebhookEndpointErrors];
+
+export type UpdateWebhookEndpointResponses = {
+    /**
+     * The updated webhook endpoint.
+     */
+    200: WebhookEndpoint;
+};
+
+export type UpdateWebhookEndpointResponse = UpdateWebhookEndpointResponses[keyof UpdateWebhookEndpointResponses];

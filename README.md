@@ -169,11 +169,11 @@ client.setConfig({
     },
 })
 
-const { data, error } = await Spotzee.listContacts({ query: { limit: 50 } })
+const { data, error } = await Spotzee.listUsers({ query: { limit: 50 } })
 if (error) {
     console.error(`[${error.code}]`, error.message, error.request_id)
 } else {
-    data.results.forEach(contact => console.log(contact.email))
+    data.results.forEach(user => console.log(user.email))
 }
 ```
 
@@ -182,7 +182,7 @@ Every component schema in the spec is exposed as a TypeScript type:
 ```typescript
 import type { Spotzee } from '@spotzee/js-sdk/generated'
 
-const c: Spotzee.Contact = { /* … */ }
+const u: Spotzee.User = { /* … */ }
 const e: Spotzee.ErrorResponse = { /* … */ }
 ```
 

@@ -358,7 +358,7 @@ if (typeof window !== 'undefined') {
 // `SPOTZEE_API_VERSION` above (matched to the spec emitted by the platform).
 //
 // The generated SDK exposes a function per OpenAPI operation
-// (e.g. `listContacts`, `createCampaign`, `trackEvents`) returning fully
+// (e.g. `listUsers`, `createCampaign`, `trackEvents`) returning fully
 // typed `{ data, error }` results. The hand-written `Client` / `BrowserClient`
 // / `Spotzee` classes above remain the ergonomic surface for the most common
 // browser-side flows (track / identify / alias / registerDevice).
@@ -366,8 +366,8 @@ if (typeof window !== 'undefined') {
 // Consumers that want the full typed surface — server-side, agentic, or
 // when generating mocks — import directly:
 //
-//   import { listContacts, createCampaign, client } from '@spotzee/js-sdk/generated'
-//   import type { Campaign, Contact, ErrorResponse } from '@spotzee/js-sdk/generated'
+//   import { listUsers, createCampaign, client } from '@spotzee/js-sdk/generated'
+//   import type { Campaign, User, ErrorResponse } from '@spotzee/js-sdk/generated'
 //
 //   client.setConfig({
 //     baseUrl: 'https://apix.spotzee.com/api/client',

@@ -2,7 +2,7 @@
 
 import { client } from './client.gen.js';
 import type { Client, Options as Options2, TDataShape } from './client/index.js';
-import type { CreateCampaignData, CreateCampaignErrors, CreateCampaignResponses, CreateJourneyData, CreateJourneyErrors, CreateJourneyResponses, CreateListData, CreateListErrors, CreateListResponses, CreateOrganizationApiKeyData, CreateOrganizationApiKeyErrors, CreateOrganizationApiKeyResponses, CreateProjectApiKeyData, CreateProjectApiKeyErrors, CreateProjectApiKeyResponses, CreateSubscriptionData, CreateSubscriptionErrors, CreateSubscriptionResponses, CreateTagData, CreateTagErrors, CreateTagResponses, CreateTemplateData, CreateTemplateErrors, CreateTemplateResponses, DeleteCampaignData, DeleteCampaignErrors, DeleteCampaignResponses, DeleteContactData, DeleteContactErrors, DeleteContactResponses, DeleteContactsBatchData, DeleteContactsBatchErrors, DeleteContactsBatchResponses, DeleteJourneyData, DeleteJourneyErrors, DeleteJourneyResponses, DeleteListData, DeleteListErrors, DeleteListResponses, DeleteTagData, DeleteTagErrors, DeleteTagResponses, DeleteTemplateData, DeleteTemplateErrors, DeleteTemplateResponses, DuplicateCampaignData, DuplicateCampaignErrors, DuplicateCampaignResponses, GetCampaignData, GetCampaignErrors, GetCampaignResponses, GetContactData, GetContactErrors, GetContactResponses, GetCurrentProjectData, GetCurrentProjectErrors, GetCurrentProjectResponses, GetJourneyData, GetJourneyErrors, GetJourneyResponses, GetListData, GetListErrors, GetListResponses, GetOrganizationApiKeyData, GetOrganizationApiKeyErrors, GetOrganizationApiKeyResponses, GetProjectApiKeyData, GetProjectApiKeyErrors, GetProjectApiKeyResponses, GetSubscriptionData, GetSubscriptionErrors, GetSubscriptionResponses, GetTagData, GetTagErrors, GetTagResponses, GetTemplateData, GetTemplateErrors, GetTemplateResponses, ListCampaignsData, ListCampaignsErrors, ListCampaignsResponses, ListContactsData, ListContactsErrors, ListContactsResponses, ListJourneysData, ListJourneysErrors, ListJourneysResponses, ListListsData, ListListsErrors, ListListsResponses, ListOrganizationApiKeysData, ListOrganizationApiKeysErrors, ListOrganizationApiKeysResponses, ListProjectApiKeysData, ListProjectApiKeysErrors, ListProjectApiKeysResponses, ListSubscriptionsData, ListSubscriptionsErrors, ListSubscriptionsResponses, ListTagsData, ListTagsErrors, ListTagsResponses, ListTemplatesData, ListTemplatesErrors, ListTemplatesResponses, PreviewCampaignData, PreviewCampaignErrors, PreviewCampaignResponses, PreviewTemplateData, PreviewTemplateErrors, PreviewTemplateResponses, RevokeOrganizationApiKeyData, RevokeOrganizationApiKeyErrors, RevokeOrganizationApiKeyResponses, RevokeProjectApiKeyData, RevokeProjectApiKeyErrors, RevokeProjectApiKeyResponses, SendTemplateProofData, SendTemplateProofErrors, SendTemplateProofResponses, TrackEventsData, TrackEventsErrors, TrackEventsResponses, TriggerCampaignData, TriggerCampaignErrors, TriggerCampaignResponses, TriggerJourneyData, TriggerJourneyErrors, TriggerJourneyResponses, UpdateCampaignData, UpdateCampaignErrors, UpdateCampaignResponses, UpdateJourneyData, UpdateJourneyErrors, UpdateJourneyResponses, UpdateListData, UpdateListErrors, UpdateListResponses, UpdateOrganizationApiKeyData, UpdateOrganizationApiKeyErrors, UpdateOrganizationApiKeyResponses, UpdateProjectApiKeyData, UpdateProjectApiKeyErrors, UpdateProjectApiKeyResponses, UpdateSubscriptionData, UpdateSubscriptionErrors, UpdateSubscriptionResponses, UpdateTagData, UpdateTagErrors, UpdateTagResponses, UpdateTemplateData, UpdateTemplateErrors, UpdateTemplateResponses, UpsertContactsData, UpsertContactsErrors, UpsertContactsResponses } from './types.gen.js';
+import type { BatchToggleSubscriptionsData, BatchToggleSubscriptionsErrors, BatchToggleSubscriptionsResponses, BatchUpsertUsersData, BatchUpsertUsersErrors, BatchUpsertUsersResponses, CreateCampaignData, CreateCampaignErrors, CreateCampaignResponses, CreateJourneyData, CreateJourneyErrors, CreateJourneyResponses, CreateListData, CreateListErrors, CreateListResponses, CreateOrganizationApiKeyData, CreateOrganizationApiKeyErrors, CreateOrganizationApiKeyResponses, CreateProjectApiKeyData, CreateProjectApiKeyErrors, CreateProjectApiKeyResponses, CreateProjectData, CreateProjectErrors, CreateProjectResponses, CreateSubscriptionData, CreateSubscriptionErrors, CreateSubscriptionResponses, CreateTagData, CreateTagErrors, CreateTagResponses, CreateTemplateData, CreateTemplateErrors, CreateTemplateResponses, CreateUserSessionData, CreateUserSessionErrors, CreateUserSessionResponses, CreateWebhookEndpointData, CreateWebhookEndpointErrors, CreateWebhookEndpointResponses, DeleteCampaignData, DeleteCampaignErrors, DeleteCampaignResponses, DeleteJourneyData, DeleteJourneyErrors, DeleteJourneyResponses, DeleteListData, DeleteListErrors, DeleteListResponses, DeleteTagData, DeleteTagErrors, DeleteTagResponses, DeleteTemplateData, DeleteTemplateErrors, DeleteTemplateResponses, DeleteUserData, DeleteUserErrors, DeleteUserResponses, DeleteUsersBatchData, DeleteUsersBatchErrors, DeleteUsersBatchResponses, DeleteWebhookEndpointData, DeleteWebhookEndpointErrors, DeleteWebhookEndpointResponses, DuplicateCampaignData, DuplicateCampaignErrors, DuplicateCampaignResponses, GetCampaignData, GetCampaignErrors, GetCampaignResponses, GetCurrentOrganizationData, GetCurrentOrganizationErrors, GetCurrentOrganizationResponses, GetCurrentProjectData, GetCurrentProjectErrors, GetCurrentProjectResponses, GetCurrentUserData, GetCurrentUserErrors, GetCurrentUserResponses, GetJourneyData, GetJourneyErrors, GetJourneyResponses, GetListData, GetListErrors, GetListResponses, GetOrganizationApiKeyData, GetOrganizationApiKeyErrors, GetOrganizationApiKeyResponses, GetProjectApiKeyData, GetProjectApiKeyErrors, GetProjectApiKeyResponses, GetSubscriptionData, GetSubscriptionErrors, GetSubscriptionResponses, GetTagData, GetTagErrors, GetTagResponses, GetTemplateData, GetTemplateErrors, GetTemplateResponses, GetUserData, GetUserErrors, GetUserResponses, GetWebhookEndpointData, GetWebhookEndpointErrors, GetWebhookEndpointResponses, ListCampaignsData, ListCampaignsErrors, ListCampaignsResponses, ListJourneysData, ListJourneysErrors, ListJourneysResponses, ListListsData, ListListsErrors, ListListsResponses, ListOrganizationApiKeysData, ListOrganizationApiKeysErrors, ListOrganizationApiKeysResponses, ListProjectApiKeysData, ListProjectApiKeysErrors, ListProjectApiKeysResponses, ListProjectsData, ListProjectsErrors, ListProjectsResponses, ListSubscriptionsData, ListSubscriptionsErrors, ListSubscriptionsResponses, ListTagsData, ListTagsErrors, ListTagsResponses, ListTemplatesData, ListTemplatesErrors, ListTemplatesResponses, ListUsersData, ListUsersErrors, ListUsersResponses, ListUserSubscriptionsData, ListUserSubscriptionsErrors, ListUserSubscriptionsResponses, ListWebhookEndpointsData, ListWebhookEndpointsErrors, ListWebhookEndpointsResponses, PreviewCampaignData, PreviewCampaignErrors, PreviewCampaignResponses, PreviewTemplateData, PreviewTemplateErrors, PreviewTemplateResponses, RevokeOrganizationApiKeyData, RevokeOrganizationApiKeyErrors, RevokeOrganizationApiKeyResponses, RevokeProjectApiKeyData, RevokeProjectApiKeyErrors, RevokeProjectApiKeyResponses, RotateWebhookEndpointSecretData, RotateWebhookEndpointSecretErrors, RotateWebhookEndpointSecretResponses, SendTemplateProofData, SendTemplateProofErrors, SendTemplateProofResponses, SubmitProjectOnboardingMetadataData, SubmitProjectOnboardingMetadataErrors, SubmitProjectOnboardingMetadataResponses, ToggleUserSubscriptionsData, ToggleUserSubscriptionsErrors, ToggleUserSubscriptionsResponses, TrackEventsData, TrackEventsErrors, TrackEventsResponses, TriggerCampaignData, TriggerCampaignErrors, TriggerCampaignResponses, TriggerJourneyData, TriggerJourneyErrors, TriggerJourneyResponses, UpdateCampaignData, UpdateCampaignErrors, UpdateCampaignResponses, UpdateCurrentUserSubscriptionsData, UpdateCurrentUserSubscriptionsErrors, UpdateCurrentUserSubscriptionsResponses, UpdateJourneyData, UpdateJourneyErrors, UpdateJourneyResponses, UpdateListData, UpdateListErrors, UpdateListResponses, UpdateOrganizationApiKeyData, UpdateOrganizationApiKeyErrors, UpdateOrganizationApiKeyResponses, UpdateProjectApiKeyData, UpdateProjectApiKeyErrors, UpdateProjectApiKeyResponses, UpdateProjectData, UpdateProjectErrors, UpdateProjectResponses, UpdateSubscriptionData, UpdateSubscriptionErrors, UpdateSubscriptionResponses, UpdateTagData, UpdateTagErrors, UpdateTagResponses, UpdateTemplateData, UpdateTemplateErrors, UpdateTemplateResponses, UpdateWebhookEndpointData, UpdateWebhookEndpointErrors, UpdateWebhookEndpointResponses, UpsertUsersData, UpsertUsersErrors, UpsertUsersResponses } from './types.gen.js';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean, TResponse = unknown> = Options2<TData, ThrowOnError, TResponse> & {
     /**
@@ -19,6 +19,34 @@ export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends 
 };
 
 /**
+ * List projects in the organisation
+ *
+ * Returns a paginated list of projects belonging to the calling key’s organisation. Sensitive internal fields are excluded from each row.
+ */
+export const listProjects = <ThrowOnError extends boolean = false>(options?: Options<ListProjectsData, ThrowOnError>) => (options?.client ?? client).get<ListProjectsResponses, ListProjectsErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/projects',
+    ...options
+});
+
+/**
+ * Create a project
+ *
+ * Creates a new project inside the calling key’s organisation. The caller must have at least `admin` role on the organisation. The created project includes one default subscription per channel (email, SMS, push, webhook).
+ *
+ * Idempotent — pass an `Idempotency-Key` header to make safely retryable. On a replay the original response is returned with `Idempotent-Replayed: true`. See the API conventions guide for the full state machine, TTL, and mismatch behaviour.
+ */
+export const createProject = <ThrowOnError extends boolean = false>(options?: Options<CreateProjectData, ThrowOnError>) => (options?.client ?? client).post<CreateProjectResponses, CreateProjectErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/projects',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options?.headers
+    }
+});
+
+/**
  * Get the current project
  *
  * Returns the project the calling secret API key is scoped to, including the caller’s role and whether at least one delivery provider is configured.
@@ -30,9 +58,43 @@ export const getCurrentProject = <ThrowOnError extends boolean = false>(options?
 });
 
 /**
+ * Update a project
+ *
+ * Partial update of a project. The caller must have at least `admin` role on the organisation owning the project. Only fields included in the request body are modified.
+ *
+ * Idempotent — pass an `Idempotency-Key` header to make safely retryable. On a replay the original response is returned with `Idempotent-Replayed: true`. See the API conventions guide for the full state machine, TTL, and mismatch behaviour.
+ */
+export const updateProject = <ThrowOnError extends boolean = false>(options?: Options<UpdateProjectData, ThrowOnError>) => (options?.client ?? client).patch<UpdateProjectResponses, UpdateProjectErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/projects/{projectId}',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options?.headers
+    }
+});
+
+/**
+ * Submit project onboarding metadata
+ *
+ * Records the onboarding survey for a project. Idempotent — repeated calls overwrite the existing record. The caller must have at least `admin` role on the organisation owning the project. Required after creating the first project so the dashboard can finalise first-run setup.
+ */
+export const submitProjectOnboardingMetadata = <ThrowOnError extends boolean = false>(options?: Options<SubmitProjectOnboardingMetadataData, ThrowOnError>) => (options?.client ?? client).post<SubmitProjectOnboardingMetadataResponses, SubmitProjectOnboardingMetadataErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/projects/{projectId}/onboarding-metadata',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options?.headers
+    }
+});
+
+/**
  * Track events
  *
  * Records one or more behavioural events against a contact. Events drive segmentation and journey triggers. Up to 100 events per request — supplying both `anonymous_id` and `external_id` on an event links the two identifiers. Optionally pass a `user` block to update the contact’s profile in the same call.
+ *
+ * Idempotent — pass an `Idempotency-Key` header to make safely retryable. On a replay the original response is returned with `Idempotent-Replayed: true`. See the API conventions guide for the full state machine, TTL, and mismatch behaviour.
  */
 export const trackEvents = <ThrowOnError extends boolean = false>(options?: Options<TrackEventsData, ThrowOnError>) => (options?.client ?? client).post<TrackEventsResponses, TrackEventsErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }, { scheme: 'bearer', type: 'http' }],
@@ -59,6 +121,8 @@ export const listCampaigns = <ThrowOnError extends boolean = false>(options?: Op
  * Create a campaign
  *
  * Creates a new campaign. To schedule a blast send, follow up with `PATCH /:campaignId` setting `state: "scheduled"` and `send_at`.
+ *
+ * Idempotent — pass an `Idempotency-Key` header to make safely retryable. On a replay the original response is returned with `Idempotent-Replayed: true`. See the API conventions guide for the full state machine, TTL, and mismatch behaviour.
  */
 export const createCampaign = <ThrowOnError extends boolean = false>(options?: Options<CreateCampaignData, ThrowOnError>) => (options?.client ?? client).post<CreateCampaignResponses, CreateCampaignErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
@@ -96,6 +160,8 @@ export const getCampaign = <ThrowOnError extends boolean = false>(options?: Opti
  * Update a campaign
  *
  * Partial update of a campaign. To schedule a blast: set `state: "scheduled"` and `send_at`. To cancel a running blast: set `state: "aborted"`.
+ *
+ * Idempotent — pass an `Idempotency-Key` header to make safely retryable. On a replay the original response is returned with `Idempotent-Replayed: true`. See the API conventions guide for the full state machine, TTL, and mismatch behaviour.
  */
 export const updateCampaign = <ThrowOnError extends boolean = false>(options?: Options<UpdateCampaignData, ThrowOnError>) => (options?.client ?? client).patch<UpdateCampaignResponses, UpdateCampaignErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
@@ -111,6 +177,8 @@ export const updateCampaign = <ThrowOnError extends boolean = false>(options?: O
  * Duplicate a campaign
  *
  * Creates a draft copy of the campaign with the same lists, templates, and settings.
+ *
+ * Idempotent — pass an `Idempotency-Key` header to make safely retryable. On a replay the original response is returned with `Idempotent-Replayed: true`. See the API conventions guide for the full state machine, TTL, and mismatch behaviour.
  */
 export const duplicateCampaign = <ThrowOnError extends boolean = false>(options?: Options<DuplicateCampaignData, ThrowOnError>) => (options?.client ?? client).post<DuplicateCampaignResponses, DuplicateCampaignErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
@@ -133,6 +201,8 @@ export const previewCampaign = <ThrowOnError extends boolean = false>(options?: 
  * Trigger a campaign send for one contact
  *
  * Fires a `trigger`-type campaign send for a single contact. The supplied `event` payload is available to template Handlebars as `{{event}}`.
+ *
+ * Idempotent — pass an `Idempotency-Key` header to make safely retryable. On a replay the original response is returned with `Idempotent-Replayed: true`. See the API conventions guide for the full state machine, TTL, and mismatch behaviour.
  */
 export const triggerCampaign = <ThrowOnError extends boolean = false>(options?: Options<TriggerCampaignData, ThrowOnError>) => (options?.client ?? client).post<TriggerCampaignResponses, TriggerCampaignErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
@@ -159,6 +229,8 @@ export const listLists = <ThrowOnError extends boolean = false>(options?: Option
  * Create a list
  *
  * Creates a new static or dynamic list. Static lists are populated by adding members directly. Dynamic lists are materialised from a rule tree and refreshed when contacts change.
+ *
+ * Idempotent — pass an `Idempotency-Key` header to make safely retryable. On a replay the original response is returned with `Idempotent-Replayed: true`. See the API conventions guide for the full state machine, TTL, and mismatch behaviour.
  */
 export const createList = <ThrowOnError extends boolean = false>(options?: Options<CreateListData, ThrowOnError>) => (options?.client ?? client).post<CreateListResponses, CreateListErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
@@ -196,6 +268,8 @@ export const getList = <ThrowOnError extends boolean = false>(options?: Options<
  * Update a list
  *
  * Updates a list’s name, tags, or rule tree. For dynamic lists, providing a new `rule` triggers a re-materialisation of members.
+ *
+ * Idempotent — pass an `Idempotency-Key` header to make safely retryable. On a replay the original response is returned with `Idempotent-Replayed: true`. See the API conventions guide for the full state machine, TTL, and mismatch behaviour.
  */
 export const updateList = <ThrowOnError extends boolean = false>(options?: Options<UpdateListData, ThrowOnError>) => (options?.client ?? client).patch<UpdateListResponses, UpdateListErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
@@ -208,9 +282,26 @@ export const updateList = <ThrowOnError extends boolean = false>(options?: Optio
 });
 
 /**
+ * Bulk toggle the current user’s subscription states
+ *
+ * Subscribes or unsubscribes the user bound to the calling session token across one or more subscription types. Designed for browser-side preference-centre opt-out flows: pass a publishable key (`pk_…`) plus a user session token (see `POST /users/{userId}/sessions`) in the `X-Spotzee-User-Token` header. Up to 100 toggles per request. Toggling to the current state is a no-op (idempotent).
+ *
+ * Idempotent — pass an `Idempotency-Key` header to make safely retryable. On a replay the original response is returned with `Idempotent-Replayed: true`. See the API conventions guide for the full state machine, TTL, and mismatch behaviour.
+ */
+export const updateCurrentUserSubscriptions = <ThrowOnError extends boolean = false>(options?: Options<UpdateCurrentUserSubscriptionsData, ThrowOnError>) => (options?.client ?? client).patch<UpdateCurrentUserSubscriptionsResponses, UpdateCurrentUserSubscriptionsErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }, { name: 'X-Spotzee-User-Token', type: 'apiKey' }],
+    url: '/subscriptions/me',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options?.headers
+    }
+});
+
+/**
  * List subscription types
  *
- * Returns a paginated list of subscription types in the project. Subscription types are the opt-in channels a contact can subscribe to.
+ * Returns a paginated list of subscription types in the project. Subscription types are the opt-in channels a user can subscribe to.
  */
 export const listSubscriptions = <ThrowOnError extends boolean = false>(options?: Options<ListSubscriptionsData, ThrowOnError>) => (options?.client ?? client).get<ListSubscriptionsResponses, ListSubscriptionsErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
@@ -222,6 +313,8 @@ export const listSubscriptions = <ThrowOnError extends boolean = false>(options?
  * Create a subscription type
  *
  * Creates a new opt-in subscription type bound to a single delivery channel.
+ *
+ * Idempotent — pass an `Idempotency-Key` header to make safely retryable. On a replay the original response is returned with `Idempotent-Replayed: true`. See the API conventions guide for the full state machine, TTL, and mismatch behaviour.
  */
 export const createSubscription = <ThrowOnError extends boolean = false>(options?: Options<CreateSubscriptionData, ThrowOnError>) => (options?.client ?? client).post<CreateSubscriptionResponses, CreateSubscriptionErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
@@ -248,10 +341,29 @@ export const getSubscription = <ThrowOnError extends boolean = false>(options?: 
  * Update a subscription type
  *
  * Updates the name and visibility of a subscription type. Channel cannot be changed.
+ *
+ * Idempotent — pass an `Idempotency-Key` header to make safely retryable. On a replay the original response is returned with `Idempotent-Replayed: true`. See the API conventions guide for the full state machine, TTL, and mismatch behaviour.
  */
 export const updateSubscription = <ThrowOnError extends boolean = false>(options?: Options<UpdateSubscriptionData, ThrowOnError>) => (options?.client ?? client).patch<UpdateSubscriptionResponses, UpdateSubscriptionErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/subscriptions/{subscriptionId}',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options?.headers
+    }
+});
+
+/**
+ * Bulk toggle subscription states across many users
+ *
+ * Subscribes or unsubscribes one or more users across one or more subscription types in a single call. Each item identifies its target user by `external_id` or `anonymous_id`. Up to 100 toggles per request; the response reports per-item success or failure. Toggling to the current state is a no-op (idempotent).
+ *
+ * Idempotent — pass an `Idempotency-Key` header to make safely retryable. On a replay the original response is returned with `Idempotent-Replayed: true`. See the API conventions guide for the full state machine, TTL, and mismatch behaviour.
+ */
+export const batchToggleSubscriptions = <ThrowOnError extends boolean = false>(options?: Options<BatchToggleSubscriptionsData, ThrowOnError>) => (options?.client ?? client).post<BatchToggleSubscriptionsResponses, BatchToggleSubscriptionsErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/subscriptions/batch',
     ...options,
     headers: {
         'Content-Type': 'application/json',
@@ -274,6 +386,8 @@ export const listJourneys = <ThrowOnError extends boolean = false>(options?: Opt
  * Create a journey
  *
  * Creates a new journey. Use `PUT /:journeyId/steps` to populate the step graph.
+ *
+ * Idempotent — pass an `Idempotency-Key` header to make safely retryable. On a replay the original response is returned with `Idempotent-Replayed: true`. See the API conventions guide for the full state machine, TTL, and mismatch behaviour.
  */
 export const createJourney = <ThrowOnError extends boolean = false>(options?: Options<CreateJourneyData, ThrowOnError>) => (options?.client ?? client).post<CreateJourneyResponses, CreateJourneyErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
@@ -311,6 +425,8 @@ export const getJourney = <ThrowOnError extends boolean = false>(options?: Optio
  * Update a journey
  *
  * Updates a journey’s name, description, tags, or status. Set `status: "off"` to pause; `status: "live"` to resume.
+ *
+ * Idempotent — pass an `Idempotency-Key` header to make safely retryable. On a replay the original response is returned with `Idempotent-Replayed: true`. See the API conventions guide for the full state machine, TTL, and mismatch behaviour.
  */
 export const updateJourney = <ThrowOnError extends boolean = false>(options?: Options<UpdateJourneyData, ThrowOnError>) => (options?.client ?? client).patch<UpdateJourneyResponses, UpdateJourneyErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
@@ -326,6 +442,8 @@ export const updateJourney = <ThrowOnError extends boolean = false>(options?: Op
  * Trigger a journey entrance for one contact
  *
  * Manually inserts a contact into a journey at a specific entrance step. Useful for ad-hoc triggers and back-filling missed entries.
+ *
+ * Idempotent — pass an `Idempotency-Key` header to make safely retryable. On a replay the original response is returned with `Idempotent-Replayed: true`. See the API conventions guide for the full state machine, TTL, and mismatch behaviour.
  */
 export const triggerJourney = <ThrowOnError extends boolean = false>(options?: Options<TriggerJourneyData, ThrowOnError>) => (options?.client ?? client).post<TriggerJourneyResponses, TriggerJourneyErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
@@ -352,6 +470,8 @@ export const listTemplates = <ThrowOnError extends boolean = false>(options?: Op
  * Create a template
  *
  * Creates a new template for a campaign. The `type` discriminator chooses the channel-specific `data` shape (email, text, push, webhook, in_app).
+ *
+ * Idempotent — pass an `Idempotency-Key` header to make safely retryable. On a replay the original response is returned with `Idempotent-Replayed: true`. See the API conventions guide for the full state machine, TTL, and mismatch behaviour.
  */
 export const createTemplate = <ThrowOnError extends boolean = false>(options?: Options<CreateTemplateData, ThrowOnError>) => (options?.client ?? client).post<CreateTemplateResponses, CreateTemplateErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
@@ -389,6 +509,8 @@ export const getTemplate = <ThrowOnError extends boolean = false>(options?: Opti
  * Update a template
  *
  * Updates a template’s name and channel-specific `data`. Channel cannot be changed once set; the request body must use the same `type` as the existing template.
+ *
+ * Idempotent — pass an `Idempotency-Key` header to make safely retryable. On a replay the original response is returned with `Idempotent-Replayed: true`. See the API conventions guide for the full state machine, TTL, and mismatch behaviour.
  */
 export const updateTemplate = <ThrowOnError extends boolean = false>(options?: Options<UpdateTemplateData, ThrowOnError>) => (options?.client ?? client).patch<UpdateTemplateResponses, UpdateTemplateErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
@@ -404,6 +526,8 @@ export const updateTemplate = <ThrowOnError extends boolean = false>(options?: O
  * Render a template preview
  *
  * Compiles the template against the supplied `user`, `event`, and `context` payloads and returns the rendered output. Useful for previewing campaign content before sending.
+ *
+ * Idempotent — pass an `Idempotency-Key` header to make safely retryable. On a replay the original response is returned with `Idempotent-Replayed: true`. See the API conventions guide for the full state machine, TTL, and mismatch behaviour.
  */
 export const previewTemplate = <ThrowOnError extends boolean = false>(options?: Options<PreviewTemplateData, ThrowOnError>) => (options?.client ?? client).post<PreviewTemplateResponses, PreviewTemplateErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
@@ -419,6 +543,8 @@ export const previewTemplate = <ThrowOnError extends boolean = false>(options?: 
  * Send a proof of a template
  *
  * Renders the template with the supplied variables and sends a one-off proof to a single recipient. Useful for content review before launching a campaign.
+ *
+ * Idempotent — pass an `Idempotency-Key` header to make safely retryable. On a replay the original response is returned with `Idempotent-Replayed: true`. See the API conventions guide for the full state machine, TTL, and mismatch behaviour.
  */
 export const sendTemplateProof = <ThrowOnError extends boolean = false>(options?: Options<SendTemplateProofData, ThrowOnError>) => (options?.client ?? client).post<SendTemplateProofResponses, SendTemplateProofErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
@@ -431,33 +557,35 @@ export const sendTemplateProof = <ThrowOnError extends boolean = false>(options?
 });
 
 /**
- * Delete contacts in bulk
+ * Delete users in bulk
  *
- * Deletes one or more contacts identified by `external_id`. Supply repeated `?user_id=` query parameters for each contact to remove. Deletion is asynchronous; the response is 204 once the batch is queued.
+ * Deletes one or more users identified by `external_id`. Supply repeated `?user_id=` query parameters for each user to remove. Deletion is asynchronous; the response is 204 once the batch is queued.
  */
-export const deleteContactsBatch = <ThrowOnError extends boolean = false>(options: Options<DeleteContactsBatchData, ThrowOnError>) => (options.client ?? client).delete<DeleteContactsBatchResponses, DeleteContactsBatchErrors, ThrowOnError>({
+export const deleteUsersBatch = <ThrowOnError extends boolean = false>(options: Options<DeleteUsersBatchData, ThrowOnError>) => (options.client ?? client).delete<DeleteUsersBatchResponses, DeleteUsersBatchErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/users',
     ...options
 });
 
 /**
- * List contacts
+ * List users
  *
- * Returns a paginated list of contacts in the project, ordered by `id` descending by default. Supports cursor-based pagination via `cursor` and `page`, and free-text search via `q` across `external_id`, `email`, `phone`, and `anonymous_id`.
+ * Returns a paginated list of users in the project, ordered by `id` descending by default. Supports cursor-based pagination via `cursor` and `page`, and free-text search via `q` across `external_id`, `email`, `phone`, and `anonymous_id`.
  */
-export const listContacts = <ThrowOnError extends boolean = false>(options?: Options<ListContactsData, ThrowOnError>) => (options?.client ?? client).get<ListContactsResponses, ListContactsErrors, ThrowOnError>({
+export const listUsers = <ThrowOnError extends boolean = false>(options?: Options<ListUsersData, ThrowOnError>) => (options?.client ?? client).get<ListUsersResponses, ListUsersErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/users',
     ...options
 });
 
 /**
- * Upsert contacts
+ * Upsert users
  *
- * Creates or updates up to 100 contacts in a single call. Each item must include either `anonymous_id` or `external_id`; supplying both links the two identifiers. Processing is asynchronous — the response is 204 once the batch is queued.
+ * Creates or updates up to 100 users in a single call. Each item must include either `anonymous_id` or `external_id`; supplying both links the two identifiers. Processing is asynchronous — the response is 204 once the batch is queued.
+ *
+ * Idempotent — pass an `Idempotency-Key` header to make safely retryable. On a replay the original response is returned with `Idempotent-Replayed: true`. See the API conventions guide for the full state machine, TTL, and mismatch behaviour.
  */
-export const upsertContacts = <ThrowOnError extends boolean = false>(options?: Options<UpsertContactsData, ThrowOnError>) => (options?.client ?? client).patch<UpsertContactsResponses, UpsertContactsErrors, ThrowOnError>({
+export const upsertUsers = <ThrowOnError extends boolean = false>(options?: Options<UpsertUsersData, ThrowOnError>) => (options?.client ?? client).patch<UpsertUsersResponses, UpsertUsersErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/users',
     ...options,
@@ -468,24 +596,93 @@ export const upsertContacts = <ThrowOnError extends boolean = false>(options?: O
 });
 
 /**
- * Delete a contact
+ * Bulk upsert users (synchronous)
  *
- * Deletes a single contact, looked up by `external_id` when called with a project-scoped key, or by numeric ID when called from the admin scope. Deletion is asynchronous; the response is 204 once the job is queued.
+ * Creates or updates up to 100 users in a single call and reports per-item success or failure before returning. Each input must include either `anonymous_id` or `external_id`; supplying both links the two identifiers. Use this when the calling system needs to react to partial failures inline; use `PATCH /users` instead for fire-and-forget queued processing.
+ *
+ * Idempotent — pass an `Idempotency-Key` header to make safely retryable. On a replay the original response is returned with `Idempotent-Replayed: true`. See the API conventions guide for the full state machine, TTL, and mismatch behaviour.
  */
-export const deleteContact = <ThrowOnError extends boolean = false>(options: Options<DeleteContactData, ThrowOnError>) => (options.client ?? client).delete<DeleteContactResponses, DeleteContactErrors, ThrowOnError>({
+export const batchUpsertUsers = <ThrowOnError extends boolean = false>(options?: Options<BatchUpsertUsersData, ThrowOnError>) => (options?.client ?? client).post<BatchUpsertUsersResponses, BatchUpsertUsersErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/users/batch',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options?.headers
+    }
+});
+
+/**
+ * Get the current user
+ *
+ * Returns the user bound to the calling session token. Designed for browser-side preference-centre flows: pass a publishable key (`pk_…`) plus a user session token (see `POST /users/{userId}/sessions`) in the `X-Spotzee-User-Token` header. A project-scoped key on this endpoint is rejected to keep semantics clear.
+ */
+export const getCurrentUser = <ThrowOnError extends boolean = false>(options?: Options<GetCurrentUserData, ThrowOnError>) => (options?.client ?? client).get<GetCurrentUserResponses, GetCurrentUserErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }, { name: 'X-Spotzee-User-Token', type: 'apiKey' }],
+    url: '/users/me',
+    ...options
+});
+
+/**
+ * Delete a user
+ *
+ * Deletes a single user, looked up by `external_id` when called with a project-scoped key, or by numeric ID when called from the admin scope. Deletion is asynchronous; the response is 204 once the job is queued.
+ */
+export const deleteUser = <ThrowOnError extends boolean = false>(options: Options<DeleteUserData, ThrowOnError>) => (options.client ?? client).delete<DeleteUserResponses, DeleteUserErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/users/{userId}',
     ...options
 });
 
 /**
- * Get a contact
+ * Get a user
  *
- * Returns a single contact, looked up by `external_id` when called with a project-scoped key, or by numeric ID when called from the admin scope. Custom-attribute fields not approved for the caller’s role are filtered out.
+ * Returns a single user, looked up by `external_id` when called with a project-scoped key, or by numeric ID when called from the admin scope. Custom-attribute fields not approved for the caller’s role are filtered out.
  */
-export const getContact = <ThrowOnError extends boolean = false>(options: Options<GetContactData, ThrowOnError>) => (options.client ?? client).get<GetContactResponses, GetContactErrors, ThrowOnError>({
+export const getUser = <ThrowOnError extends boolean = false>(options: Options<GetUserData, ThrowOnError>) => (options.client ?? client).get<GetUserResponses, GetUserErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/users/{userId}',
+    ...options
+});
+
+/**
+ * List a user’s subscription states
+ *
+ * Returns the calling user’s state across every subscription type defined on the project. Use this to render a preference centre or to inspect opt-out history.
+ */
+export const listUserSubscriptions = <ThrowOnError extends boolean = false>(options: Options<ListUserSubscriptionsData, ThrowOnError>) => (options.client ?? client).get<ListUserSubscriptionsResponses, ListUserSubscriptionsErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/users/{userId}/subscriptions',
+    ...options
+});
+
+/**
+ * Bulk toggle a user’s subscription states
+ *
+ * Subscribes or unsubscribes a user across one or more subscription types in a single call. Up to 100 toggles per request. Toggling to the current state is a no-op (idempotent). The response is the refreshed user record so callers can confirm the update without a second round-trip.
+ *
+ * Idempotent — pass an `Idempotency-Key` header to make safely retryable. On a replay the original response is returned with `Idempotent-Replayed: true`. See the API conventions guide for the full state machine, TTL, and mismatch behaviour.
+ */
+export const toggleUserSubscriptions = <ThrowOnError extends boolean = false>(options: Options<ToggleUserSubscriptionsData, ThrowOnError>) => (options.client ?? client).patch<ToggleUserSubscriptionsResponses, ToggleUserSubscriptionsErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/users/{userId}/subscriptions',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
+ * Mint a user session token
+ *
+ * Issues a short-lived signed token that scopes subsequent calls to one user. The brand’s backend mints the token with a project-scoped key (`sk_…`), hands it to the frontend, which then calls the preference-centre endpoints with the token in the `X-Spotzee-User-Token` header alongside a publishable key (`pk_…`). Tokens are not refreshable — issue a new one when expired.
+ *
+ * Idempotent — pass an `Idempotency-Key` header to make safely retryable. On a replay the original response is returned with `Idempotent-Replayed: true`. See the API conventions guide for the full state machine, TTL, and mismatch behaviour.
+ */
+export const createUserSession = <ThrowOnError extends boolean = false>(options: Options<CreateUserSessionData, ThrowOnError>) => (options.client ?? client).post<CreateUserSessionResponses, CreateUserSessionErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/users/{userId}/sessions',
     ...options
 });
 
@@ -504,6 +701,8 @@ export const listTags = <ThrowOnError extends boolean = false>(options?: Options
  * Create a tag
  *
  * Creates a new tag in the project.
+ *
+ * Idempotent — pass an `Idempotency-Key` header to make safely retryable. On a replay the original response is returned with `Idempotent-Replayed: true`. See the API conventions guide for the full state machine, TTL, and mismatch behaviour.
  */
 export const createTag = <ThrowOnError extends boolean = false>(options?: Options<CreateTagData, ThrowOnError>) => (options?.client ?? client).post<CreateTagResponses, CreateTagErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
@@ -541,6 +740,8 @@ export const getTag = <ThrowOnError extends boolean = false>(options?: Options<G
  * Update a tag
  *
  * Renames a tag.
+ *
+ * Idempotent — pass an `Idempotency-Key` header to make safely retryable. On a replay the original response is returned with `Idempotent-Replayed: true`. See the API conventions guide for the full state machine, TTL, and mismatch behaviour.
  */
 export const updateTag = <ThrowOnError extends boolean = false>(options?: Options<UpdateTagData, ThrowOnError>) => (options?.client ?? client).patch<UpdateTagResponses, UpdateTagErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
@@ -567,6 +768,8 @@ export const listProjectApiKeys = <ThrowOnError extends boolean = false>(options
  * Create an API key
  *
  * Creates a new API key. The full key `value` is returned exactly once in this response — store it immediately. Subsequent reads return only the masked prefix and last four characters.
+ *
+ * Idempotent — pass an `Idempotency-Key` header to make safely retryable. On a replay the original response is returned with `Idempotent-Replayed: true`. See the API conventions guide for the full state machine, TTL, and mismatch behaviour.
  */
 export const createProjectApiKey = <ThrowOnError extends boolean = false>(options?: Options<CreateProjectApiKeyData, ThrowOnError>) => (options?.client ?? client).post<CreateProjectApiKeyResponses, CreateProjectApiKeyErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
@@ -604,6 +807,8 @@ export const getProjectApiKey = <ThrowOnError extends boolean = false>(options?:
  * Update an API key
  *
  * Updates an API key’s name, description, scope, or role. The key value cannot be changed.
+ *
+ * Idempotent — pass an `Idempotency-Key` header to make safely retryable. On a replay the original response is returned with `Idempotent-Replayed: true`. See the API conventions guide for the full state machine, TTL, and mismatch behaviour.
  */
 export const updateProjectApiKey = <ThrowOnError extends boolean = false>(options?: Options<UpdateProjectApiKeyData, ThrowOnError>) => (options?.client ?? client).patch<UpdateProjectApiKeyResponses, UpdateProjectApiKeyErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
@@ -613,6 +818,17 @@ export const updateProjectApiKey = <ThrowOnError extends boolean = false>(option
         'Content-Type': 'application/json',
         ...options?.headers
     }
+});
+
+/**
+ * Get the current organisation
+ *
+ * Returns the organisation the calling key is scoped to, along with the caller’s role on that organisation. Internal billing, usage counters, and identity-provider configuration are not exposed.
+ */
+export const getCurrentOrganization = <ThrowOnError extends boolean = false>(options?: Options<GetCurrentOrganizationData, ThrowOnError>) => (options?.client ?? client).get<GetCurrentOrganizationResponses, GetCurrentOrganizationErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/organizations/me',
+    ...options
 });
 
 /**
@@ -630,6 +846,8 @@ export const listOrganizationApiKeys = <ThrowOnError extends boolean = false>(op
  * Create an organisation API key
  *
  * Creates a new organisation-scoped API key (`ok_…`). The full `value` is returned exactly once. The key’s role cannot exceed the creator’s own role.
+ *
+ * Idempotent — pass an `Idempotency-Key` header to make safely retryable. On a replay the original response is returned with `Idempotent-Replayed: true`. See the API conventions guide for the full state machine, TTL, and mismatch behaviour.
  */
 export const createOrganizationApiKey = <ThrowOnError extends boolean = false>(options?: Options<CreateOrganizationApiKeyData, ThrowOnError>) => (options?.client ?? client).post<CreateOrganizationApiKeyResponses, CreateOrganizationApiKeyErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
@@ -667,10 +885,88 @@ export const getOrganizationApiKey = <ThrowOnError extends boolean = false>(opti
  * Update an organisation API key
  *
  * Updates the key’s metadata or role. The new role cannot exceed the caller’s own role.
+ *
+ * Idempotent — pass an `Idempotency-Key` header to make safely retryable. On a replay the original response is returned with `Idempotent-Replayed: true`. See the API conventions guide for the full state machine, TTL, and mismatch behaviour.
  */
 export const updateOrganizationApiKey = <ThrowOnError extends boolean = false>(options?: Options<UpdateOrganizationApiKeyData, ThrowOnError>) => (options?.client ?? client).patch<UpdateOrganizationApiKeyResponses, UpdateOrganizationApiKeyErrors, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/organizations/api-keys/{keyId}',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options?.headers
+    }
+});
+
+/**
+ * List webhook endpoints
+ *
+ * Returns a paginated list of webhook endpoints in the project, ordered by `created_at` descending by default. The plaintext signing secret is never returned — only `has_secret` indicates whether one is configured.
+ */
+export const listWebhookEndpoints = <ThrowOnError extends boolean = false>(options?: Options<ListWebhookEndpointsData, ThrowOnError>) => (options?.client ?? client).get<ListWebhookEndpointsResponses, ListWebhookEndpointsErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/webhooks',
+    ...options
+});
+
+/**
+ * Create a webhook endpoint
+ *
+ * Creates a new webhook endpoint subscribed to one or more events. The response includes the plaintext signing secret exactly once — store it now; it cannot be re-fetched. To rotate later, call `POST /webhooks/{endpointId}/rotate-secret`. POST is idempotent when called with an `Idempotency-Key` header.
+ */
+export const createWebhookEndpoint = <ThrowOnError extends boolean = false>(options?: Options<CreateWebhookEndpointData, ThrowOnError>) => (options?.client ?? client).post<CreateWebhookEndpointResponses, CreateWebhookEndpointErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/webhooks',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options?.headers
+    }
+});
+
+/**
+ * Rotate a webhook signing secret
+ *
+ * Generates a fresh plaintext signing secret, persists it encrypted, and returns the new plaintext exactly once. The previous secret stops verifying deliveries the moment this call returns — roll forward downstream verifiers immediately. Idempotent when called with an `Idempotency-Key` header.
+ */
+export const rotateWebhookEndpointSecret = <ThrowOnError extends boolean = false>(options?: Options<RotateWebhookEndpointSecretData, ThrowOnError>) => (options?.client ?? client).post<RotateWebhookEndpointSecretResponses, RotateWebhookEndpointSecretErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/webhooks/{endpointId}/rotate-secret',
+    ...options
+});
+
+/**
+ * Delete a webhook endpoint
+ *
+ * Permanently removes the webhook endpoint and all its event subscriptions.
+ */
+export const deleteWebhookEndpoint = <ThrowOnError extends boolean = false>(options?: Options<DeleteWebhookEndpointData, ThrowOnError>) => (options?.client ?? client).delete<DeleteWebhookEndpointResponses, DeleteWebhookEndpointErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/webhooks/{endpointId}',
+    ...options
+});
+
+/**
+ * Get a webhook endpoint
+ *
+ * Returns a single webhook endpoint. The plaintext signing secret is never re-exposed.
+ */
+export const getWebhookEndpoint = <ThrowOnError extends boolean = false>(options?: Options<GetWebhookEndpointData, ThrowOnError>) => (options?.client ?? client).get<GetWebhookEndpointResponses, GetWebhookEndpointErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/webhooks/{endpointId}',
+    ...options
+});
+
+/**
+ * Update a webhook endpoint
+ *
+ * Partial update of a webhook endpoint. To rotate the signing secret, call `POST /webhooks/{endpointId}/rotate-secret` instead — secret changes are not accepted on this route.
+ *
+ * Idempotent — pass an `Idempotency-Key` header to make safely retryable. On a replay the original response is returned with `Idempotent-Replayed: true`. See the API conventions guide for the full state machine, TTL, and mismatch behaviour.
+ */
+export const updateWebhookEndpoint = <ThrowOnError extends boolean = false>(options?: Options<UpdateWebhookEndpointData, ThrowOnError>) => (options?.client ?? client).patch<UpdateWebhookEndpointResponses, UpdateWebhookEndpointErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/webhooks/{endpointId}',
     ...options,
     headers: {
         'Content-Type': 'application/json',
