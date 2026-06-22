@@ -2,7 +2,7 @@
 
 import { client } from './client.gen.js';
 import type { Client, Options as Options2, TDataShape } from './client/index.js';
-import type { BatchToggleSubscriptionsData, BatchToggleSubscriptionsErrors, BatchToggleSubscriptionsResponses, BatchUpsertUsersData, BatchUpsertUsersErrors, BatchUpsertUsersResponses, CreateCampaignData, CreateCampaignErrors, CreateCampaignResponses, CreateJourneyData, CreateJourneyErrors, CreateJourneyResponses, CreateListData, CreateListErrors, CreateListResponses, CreateOrganizationApiKeyData, CreateOrganizationApiKeyErrors, CreateOrganizationApiKeyResponses, CreateProjectApiKeyData, CreateProjectApiKeyErrors, CreateProjectApiKeyResponses, CreateProjectData, CreateProjectErrors, CreateProjectResponses, CreateSubscriptionData, CreateSubscriptionErrors, CreateSubscriptionResponses, CreateTagData, CreateTagErrors, CreateTagResponses, CreateTemplateData, CreateTemplateErrors, CreateTemplateResponses, CreateUserSessionData, CreateUserSessionErrors, CreateUserSessionResponses, CreateWebhookEndpointData, CreateWebhookEndpointErrors, CreateWebhookEndpointResponses, DeleteCampaignData, DeleteCampaignErrors, DeleteCampaignResponses, DeleteJourneyData, DeleteJourneyErrors, DeleteJourneyResponses, DeleteListData, DeleteListErrors, DeleteListResponses, DeleteTagData, DeleteTagErrors, DeleteTagResponses, DeleteTemplateData, DeleteTemplateErrors, DeleteTemplateResponses, DeleteUserData, DeleteUserErrors, DeleteUserResponses, DeleteUsersBatchData, DeleteUsersBatchErrors, DeleteUsersBatchResponses, DeleteWebhookEndpointData, DeleteWebhookEndpointErrors, DeleteWebhookEndpointResponses, DuplicateCampaignData, DuplicateCampaignErrors, DuplicateCampaignResponses, GetCampaignData, GetCampaignErrors, GetCampaignResponses, GetCurrentOrganizationData, GetCurrentOrganizationErrors, GetCurrentOrganizationResponses, GetCurrentProjectData, GetCurrentProjectErrors, GetCurrentProjectResponses, GetCurrentUserData, GetCurrentUserErrors, GetCurrentUserResponses, GetJourneyData, GetJourneyErrors, GetJourneyResponses, GetListData, GetListErrors, GetListResponses, GetOrganizationApiKeyData, GetOrganizationApiKeyErrors, GetOrganizationApiKeyResponses, GetProjectApiKeyData, GetProjectApiKeyErrors, GetProjectApiKeyResponses, GetSubscriptionData, GetSubscriptionErrors, GetSubscriptionResponses, GetTagData, GetTagErrors, GetTagResponses, GetTemplateData, GetTemplateErrors, GetTemplateResponses, GetUserData, GetUserErrors, GetUserResponses, GetWebhookEndpointData, GetWebhookEndpointErrors, GetWebhookEndpointResponses, ListCampaignsData, ListCampaignsErrors, ListCampaignsResponses, ListJourneysData, ListJourneysErrors, ListJourneysResponses, ListListsData, ListListsErrors, ListListsResponses, ListOrganizationApiKeysData, ListOrganizationApiKeysErrors, ListOrganizationApiKeysResponses, ListProjectApiKeysData, ListProjectApiKeysErrors, ListProjectApiKeysResponses, ListProjectsData, ListProjectsErrors, ListProjectsResponses, ListSubscriptionsData, ListSubscriptionsErrors, ListSubscriptionsResponses, ListTagsData, ListTagsErrors, ListTagsResponses, ListTemplatesData, ListTemplatesErrors, ListTemplatesResponses, ListUsersData, ListUsersErrors, ListUsersResponses, ListUserSubscriptionsData, ListUserSubscriptionsErrors, ListUserSubscriptionsResponses, ListWebhookEndpointsData, ListWebhookEndpointsErrors, ListWebhookEndpointsResponses, PreviewCampaignData, PreviewCampaignErrors, PreviewCampaignResponses, PreviewTemplateData, PreviewTemplateErrors, PreviewTemplateResponses, RevokeOrganizationApiKeyData, RevokeOrganizationApiKeyErrors, RevokeOrganizationApiKeyResponses, RevokeProjectApiKeyData, RevokeProjectApiKeyErrors, RevokeProjectApiKeyResponses, RotateWebhookEndpointSecretData, RotateWebhookEndpointSecretErrors, RotateWebhookEndpointSecretResponses, SendTemplateProofData, SendTemplateProofErrors, SendTemplateProofResponses, SubmitProjectOnboardingMetadataData, SubmitProjectOnboardingMetadataErrors, SubmitProjectOnboardingMetadataResponses, ToggleUserSubscriptionsData, ToggleUserSubscriptionsErrors, ToggleUserSubscriptionsResponses, TrackEventsData, TrackEventsErrors, TrackEventsResponses, TriggerCampaignData, TriggerCampaignErrors, TriggerCampaignResponses, TriggerJourneyData, TriggerJourneyErrors, TriggerJourneyResponses, UpdateCampaignData, UpdateCampaignErrors, UpdateCampaignResponses, UpdateCurrentUserSubscriptionsData, UpdateCurrentUserSubscriptionsErrors, UpdateCurrentUserSubscriptionsResponses, UpdateJourneyData, UpdateJourneyErrors, UpdateJourneyResponses, UpdateListData, UpdateListErrors, UpdateListResponses, UpdateOrganizationApiKeyData, UpdateOrganizationApiKeyErrors, UpdateOrganizationApiKeyResponses, UpdateProjectApiKeyData, UpdateProjectApiKeyErrors, UpdateProjectApiKeyResponses, UpdateProjectData, UpdateProjectErrors, UpdateProjectResponses, UpdateSubscriptionData, UpdateSubscriptionErrors, UpdateSubscriptionResponses, UpdateTagData, UpdateTagErrors, UpdateTagResponses, UpdateTemplateData, UpdateTemplateErrors, UpdateTemplateResponses, UpdateWebhookEndpointData, UpdateWebhookEndpointErrors, UpdateWebhookEndpointResponses, UpsertUsersData, UpsertUsersErrors, UpsertUsersResponses } from './types.gen.js';
+import type { AggregateEventsData, AggregateEventsErrors, AggregateEventsResponses, BatchToggleSubscriptionsData, BatchToggleSubscriptionsErrors, BatchToggleSubscriptionsResponses, BatchUpsertUsersData, BatchUpsertUsersErrors, BatchUpsertUsersResponses, CreateCampaignData, CreateCampaignErrors, CreateCampaignResponses, CreateCrmActivityData, CreateCrmActivityErrors, CreateCrmActivityResponses, CreateCrmCompanyData, CreateCrmCompanyErrors, CreateCrmCompanyResponses, CreateJourneyData, CreateJourneyErrors, CreateJourneyResponses, CreateListData, CreateListErrors, CreateListResponses, CreateOrganizationApiKeyData, CreateOrganizationApiKeyErrors, CreateOrganizationApiKeyResponses, CreateProjectApiKeyData, CreateProjectApiKeyErrors, CreateProjectApiKeyResponses, CreateProjectData, CreateProjectErrors, CreateProjectResponses, CreateSubscriptionData, CreateSubscriptionErrors, CreateSubscriptionResponses, CreateTagData, CreateTagErrors, CreateTagResponses, CreateTemplateData, CreateTemplateErrors, CreateTemplateResponses, CreateUserSessionData, CreateUserSessionErrors, CreateUserSessionResponses, CreateWebhookEndpointData, CreateWebhookEndpointErrors, CreateWebhookEndpointResponses, DeleteCampaignData, DeleteCampaignErrors, DeleteCampaignResponses, DeleteJourneyData, DeleteJourneyErrors, DeleteJourneyResponses, DeleteListData, DeleteListErrors, DeleteListResponses, DeleteTagData, DeleteTagErrors, DeleteTagResponses, DeleteTemplateData, DeleteTemplateErrors, DeleteTemplateResponses, DeleteUserData, DeleteUserErrors, DeleteUserResponses, DeleteUsersBatchData, DeleteUsersBatchErrors, DeleteUsersBatchResponses, DeleteWebhookEndpointData, DeleteWebhookEndpointErrors, DeleteWebhookEndpointResponses, DuplicateCampaignData, DuplicateCampaignErrors, DuplicateCampaignResponses, GetCampaignData, GetCampaignErrors, GetCampaignResponses, GetCrmCompanyData, GetCrmCompanyErrors, GetCrmCompanyResponses, GetCrmContactData, GetCrmContactErrors, GetCrmContactResponses, GetCurrentOrganizationData, GetCurrentOrganizationErrors, GetCurrentOrganizationResponses, GetCurrentProjectData, GetCurrentProjectErrors, GetCurrentProjectResponses, GetCurrentUserData, GetCurrentUserErrors, GetCurrentUserResponses, GetJourneyData, GetJourneyErrors, GetJourneyResponses, GetListData, GetListErrors, GetListResponses, GetOrganizationApiKeyData, GetOrganizationApiKeyErrors, GetOrganizationApiKeyResponses, GetProjectApiKeyData, GetProjectApiKeyErrors, GetProjectApiKeyResponses, GetSubscriptionData, GetSubscriptionErrors, GetSubscriptionResponses, GetTagData, GetTagErrors, GetTagResponses, GetTemplateData, GetTemplateErrors, GetTemplateResponses, GetUserData, GetUserErrors, GetUserResponses, GetWebhookEndpointData, GetWebhookEndpointErrors, GetWebhookEndpointResponses, ListCampaignsData, ListCampaignsErrors, ListCampaignsResponses, ListCrmActivitiesData, ListCrmActivitiesErrors, ListCrmActivitiesResponses, ListCrmCompaniesData, ListCrmCompaniesErrors, ListCrmCompaniesResponses, ListCrmCompanyActivitiesData, ListCrmCompanyActivitiesErrors, ListCrmCompanyActivitiesResponses, ListCrmCompanyContactsData, ListCrmCompanyContactsErrors, ListCrmCompanyContactsResponses, ListCrmContactsData, ListCrmContactsErrors, ListCrmContactsResponses, ListCrmPipelineStagesData, ListCrmPipelineStagesErrors, ListCrmPipelineStagesResponses, ListCrmPropertiesData, ListCrmPropertiesErrors, ListCrmPropertiesResponses, ListCrmViewsData, ListCrmViewsErrors, ListCrmViewsResponses, ListEventsData, ListEventsErrors, ListEventsResponses, ListJourneysData, ListJourneysErrors, ListJourneysResponses, ListListsData, ListListsErrors, ListListsResponses, ListOrganizationApiKeysData, ListOrganizationApiKeysErrors, ListOrganizationApiKeysResponses, ListProjectApiKeysData, ListProjectApiKeysErrors, ListProjectApiKeysResponses, ListProjectsData, ListProjectsErrors, ListProjectsResponses, ListSubscriptionsData, ListSubscriptionsErrors, ListSubscriptionsResponses, ListTagsData, ListTagsErrors, ListTagsResponses, ListTemplatesData, ListTemplatesErrors, ListTemplatesResponses, ListUsersData, ListUsersErrors, ListUsersResponses, ListUserSubscriptionsData, ListUserSubscriptionsErrors, ListUserSubscriptionsResponses, ListWebhookEndpointsData, ListWebhookEndpointsErrors, ListWebhookEndpointsResponses, MoveCrmContactStageData, MoveCrmContactStageErrors, MoveCrmContactStageResponses, PreviewCampaignData, PreviewCampaignErrors, PreviewCampaignResponses, PreviewTemplateData, PreviewTemplateErrors, PreviewTemplateResponses, RevokeOrganizationApiKeyData, RevokeOrganizationApiKeyErrors, RevokeOrganizationApiKeyResponses, RevokeProjectApiKeyData, RevokeProjectApiKeyErrors, RevokeProjectApiKeyResponses, RotateWebhookEndpointSecretData, RotateWebhookEndpointSecretErrors, RotateWebhookEndpointSecretResponses, SendTemplateProofData, SendTemplateProofErrors, SendTemplateProofResponses, SubmitProjectOnboardingMetadataData, SubmitProjectOnboardingMetadataErrors, SubmitProjectOnboardingMetadataResponses, ToggleUserSubscriptionsData, ToggleUserSubscriptionsErrors, ToggleUserSubscriptionsResponses, TrackEventsData, TrackEventsErrors, TrackEventsResponses, TriggerCampaignData, TriggerCampaignErrors, TriggerCampaignResponses, TriggerJourneyData, TriggerJourneyErrors, TriggerJourneyResponses, UpdateCampaignData, UpdateCampaignErrors, UpdateCampaignResponses, UpdateCrmCompanyData, UpdateCrmCompanyErrors, UpdateCrmCompanyResponses, UpdateCrmContactPropertiesData, UpdateCrmContactPropertiesErrors, UpdateCrmContactPropertiesResponses, UpdateCurrentUserSubscriptionsData, UpdateCurrentUserSubscriptionsErrors, UpdateCurrentUserSubscriptionsResponses, UpdateJourneyData, UpdateJourneyErrors, UpdateJourneyResponses, UpdateListData, UpdateListErrors, UpdateListResponses, UpdateOrganizationApiKeyData, UpdateOrganizationApiKeyErrors, UpdateOrganizationApiKeyResponses, UpdateProjectApiKeyData, UpdateProjectApiKeyErrors, UpdateProjectApiKeyResponses, UpdateProjectData, UpdateProjectErrors, UpdateProjectResponses, UpdateSubscriptionData, UpdateSubscriptionErrors, UpdateSubscriptionResponses, UpdateTagData, UpdateTagErrors, UpdateTagResponses, UpdateTemplateData, UpdateTemplateErrors, UpdateTemplateResponses, UpdateWebhookEndpointData, UpdateWebhookEndpointErrors, UpdateWebhookEndpointResponses, UpsertUsersData, UpsertUsersErrors, UpsertUsersResponses } from './types.gen.js';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean, TResponse = unknown> = Options2<TData, ThrowOnError, TResponse> & {
     /**
@@ -90,6 +90,17 @@ export const submitProjectOnboardingMetadata = <ThrowOnError extends boolean = f
 });
 
 /**
+ * List events
+ *
+ * Returns matching user events for a bounded time window. Combine user identifiers, event names, and campaign identifiers to narrow the result set; payloads are included by default.
+ */
+export const listEvents = <ThrowOnError extends boolean = false>(options: Options<ListEventsData, ThrowOnError>) => (options.client ?? client).get<ListEventsResponses, ListEventsErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/events',
+    ...options
+});
+
+/**
  * Track events
  *
  * Records one or more behavioural events against a user. Events drive segmentation and journey triggers. Up to 100 events per request — supplying both `anonymous_id` and `external_id` on an event links the two identifiers. Optionally pass a `user` block to update the user’s profile in the same call.
@@ -104,6 +115,17 @@ export const trackEvents = <ThrowOnError extends boolean = false>(options?: Opti
         'Content-Type': 'application/json',
         ...options?.headers
     }
+});
+
+/**
+ * Aggregate events
+ *
+ * Counts matching events for a bounded time window. Group by event, campaign, user, day, or any combination to answer occurrence and audience questions.
+ */
+export const aggregateEvents = <ThrowOnError extends boolean = false>(options: Options<AggregateEventsData, ThrowOnError>) => (options.client ?? client).get<AggregateEventsResponses, AggregateEventsErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/events/aggregations',
+    ...options
 });
 
 /**
@@ -972,4 +994,193 @@ export const updateWebhookEndpoint = <ThrowOnError extends boolean = false>(opti
         'Content-Type': 'application/json',
         ...options?.headers
     }
+});
+
+/**
+ * List CRM properties
+ *
+ * Returns public CRM property definitions. Hidden and classified CRM fields are not exposed.
+ */
+export const listCrmProperties = <ThrowOnError extends boolean = false>(options?: Options<ListCrmPropertiesData, ThrowOnError>) => (options?.client ?? client).get<ListCrmPropertiesResponses, ListCrmPropertiesErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/crm/properties',
+    ...options
+});
+
+/**
+ * List CRM contacts
+ *
+ * Returns CRM contact projections with public CRM properties only.
+ */
+export const listCrmContacts = <ThrowOnError extends boolean = false>(options?: Options<ListCrmContactsData, ThrowOnError>) => (options?.client ?? client).get<ListCrmContactsResponses, ListCrmContactsErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/crm/contacts',
+    ...options
+});
+
+/**
+ * Get a CRM contact
+ *
+ * Returns one CRM contact projection with public CRM properties only.
+ */
+export const getCrmContact = <ThrowOnError extends boolean = false>(options: Options<GetCrmContactData, ThrowOnError>) => (options.client ?? client).get<GetCrmContactResponses, GetCrmContactErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/crm/contacts/{contactId}',
+    ...options
+});
+
+/**
+ * Update CRM contact properties
+ *
+ * Partially updates public CRM contact properties and the optional company link.
+ *
+ * Idempotent — pass an `Idempotency-Key` header to make safely retryable. On a replay the original response is returned with `Idempotent-Replayed: true`. See the API conventions guide for the full state machine, TTL, and mismatch behaviour.
+ */
+export const updateCrmContactProperties = <ThrowOnError extends boolean = false>(options: Options<UpdateCrmContactPropertiesData, ThrowOnError>) => (options.client ?? client).patch<UpdateCrmContactPropertiesResponses, UpdateCrmContactPropertiesErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/crm/contacts/{contactId}/properties',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
+ * Move a CRM contact stage
+ *
+ * Moves a CRM contact to a pipeline stage and records the stage-change activity.
+ *
+ * Idempotent — pass an `Idempotency-Key` header to make safely retryable. On a replay the original response is returned with `Idempotent-Replayed: true`. See the API conventions guide for the full state machine, TTL, and mismatch behaviour.
+ */
+export const moveCrmContactStage = <ThrowOnError extends boolean = false>(options: Options<MoveCrmContactStageData, ThrowOnError>) => (options.client ?? client).patch<MoveCrmContactStageResponses, MoveCrmContactStageErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/crm/contacts/{contactId}/stage',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
+ * List CRM companies
+ *
+ * Returns CRM company projections with public CRM properties only.
+ */
+export const listCrmCompanies = <ThrowOnError extends boolean = false>(options?: Options<ListCrmCompaniesData, ThrowOnError>) => (options?.client ?? client).get<ListCrmCompaniesResponses, ListCrmCompaniesErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/crm/companies',
+    ...options
+});
+
+/**
+ * Create a CRM company
+ *
+ * Creates a CRM company. POST is idempotent when called with an `Idempotency-Key` header.
+ */
+export const createCrmCompany = <ThrowOnError extends boolean = false>(options?: Options<CreateCrmCompanyData, ThrowOnError>) => (options?.client ?? client).post<CreateCrmCompanyResponses, CreateCrmCompanyErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/crm/companies',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options?.headers
+    }
+});
+
+/**
+ * Get a CRM company
+ *
+ * Returns one CRM company projection with public CRM properties only.
+ */
+export const getCrmCompany = <ThrowOnError extends boolean = false>(options: Options<GetCrmCompanyData, ThrowOnError>) => (options.client ?? client).get<GetCrmCompanyResponses, GetCrmCompanyErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/crm/companies/{companyId}',
+    ...options
+});
+
+/**
+ * Update a CRM company
+ *
+ * Partially updates a CRM company. PATCH is idempotent when called with an `Idempotency-Key` header.
+ */
+export const updateCrmCompany = <ThrowOnError extends boolean = false>(options: Options<UpdateCrmCompanyData, ThrowOnError>) => (options.client ?? client).patch<UpdateCrmCompanyResponses, UpdateCrmCompanyErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/crm/companies/{companyId}',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
+ * List CRM company contacts
+ *
+ * Returns contacts linked to one CRM company.
+ */
+export const listCrmCompanyContacts = <ThrowOnError extends boolean = false>(options: Options<ListCrmCompanyContactsData, ThrowOnError>) => (options.client ?? client).get<ListCrmCompanyContactsResponses, ListCrmCompanyContactsErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/crm/companies/{companyId}/contacts',
+    ...options
+});
+
+/**
+ * List CRM company activities
+ *
+ * Returns activities linked to one CRM company.
+ */
+export const listCrmCompanyActivities = <ThrowOnError extends boolean = false>(options: Options<ListCrmCompanyActivitiesData, ThrowOnError>) => (options.client ?? client).get<ListCrmCompanyActivitiesResponses, ListCrmCompanyActivitiesErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/crm/companies/{companyId}/activities',
+    ...options
+});
+
+/**
+ * List CRM activities
+ *
+ * Returns CRM activities filtered by contact or company.
+ */
+export const listCrmActivities = <ThrowOnError extends boolean = false>(options?: Options<ListCrmActivitiesData, ThrowOnError>) => (options?.client ?? client).get<ListCrmActivitiesResponses, ListCrmActivitiesErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/crm/activities',
+    ...options
+});
+
+/**
+ * Create a CRM activity
+ *
+ * Creates a manual CRM activity. POST is idempotent when called with an `Idempotency-Key` header.
+ */
+export const createCrmActivity = <ThrowOnError extends boolean = false>(options?: Options<CreateCrmActivityData, ThrowOnError>) => (options?.client ?? client).post<CreateCrmActivityResponses, CreateCrmActivityErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/crm/activities',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options?.headers
+    }
+});
+
+/**
+ * List CRM pipeline stages
+ *
+ * Returns active CRM pipeline stages. Public CRM v1 does not expose stage configuration writes.
+ */
+export const listCrmPipelineStages = <ThrowOnError extends boolean = false>(options?: Options<ListCrmPipelineStagesData, ThrowOnError>) => (options?.client ?? client).get<ListCrmPipelineStagesResponses, ListCrmPipelineStagesErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/crm/pipeline/stages',
+    ...options
+});
+
+/**
+ * List CRM saved views
+ *
+ * Returns saved CRM view metadata. Public CRM v1 does not expose saved-view rule CRUD.
+ */
+export const listCrmViews = <ThrowOnError extends boolean = false>(options?: Options<ListCrmViewsData, ThrowOnError>) => (options?.client ?? client).get<ListCrmViewsResponses, ListCrmViewsErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/crm/views',
+    ...options
 });
