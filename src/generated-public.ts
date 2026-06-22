@@ -34,8 +34,26 @@
 // Explicit `.js` extensions on relative paths are required by Node's strict
 // ESM resolver (https://nodejs.org/api/esm.html#mandatory-file-extensions).
 // TypeScript emits them as-is and resolves them correctly at compile time.
-import * as Spotzee from './generated/index.js'
-export { Spotzee }
+import * as SpotzeeGenerated from './generated/index.js'
+import type { TemplateUpdateRequest } from './generated/index.js'
+
+export const Spotzee = SpotzeeGenerated
+
+export type TemplateUpdate = TemplateUpdateRequest
+export type TemplateUpdateEmail = TemplateUpdateRequest
+export type TemplateUpdateText = TemplateUpdateRequest
+export type TemplateUpdatePush = TemplateUpdateRequest
+export type TemplateUpdateWebhook = TemplateUpdateRequest
+export type TemplateUpdateInApp = TemplateUpdateRequest
+
+export namespace Spotzee {
+    export type TemplateUpdate = TemplateUpdateRequest
+    export type TemplateUpdateEmail = TemplateUpdateRequest
+    export type TemplateUpdateText = TemplateUpdateRequest
+    export type TemplateUpdatePush = TemplateUpdateRequest
+    export type TemplateUpdateWebhook = TemplateUpdateRequest
+    export type TemplateUpdateInApp = TemplateUpdateRequest
+}
 
 // `client` (the singleton) is exported from the top-level client.gen.ts;
 // `client/` subdir has the framework primitives (createClient, createConfig,
