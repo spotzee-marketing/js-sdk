@@ -26,4 +26,6 @@ npm-debug.log*
 .env
 .env.*
 
+# Local AI-agent guidance
+CLAUDE.md
 openapi.local.json
